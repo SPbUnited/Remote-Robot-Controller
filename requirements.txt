@@ -1,0 +1,18 @@
+websockets
+uvloop
+sanic
+#==18.12.0
+thespian
+pyee==7.0.2
+asyncpg
+pytest
+pyyaml
+pyserial
+# aiosqlite
+requests
+pyinstaller
+sanic-cors
+websocket-client
+jsonschema
+# sqlalchemy
+inputs
