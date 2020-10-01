@@ -23,7 +23,7 @@ class Web:
         self.sanic.config.update(self.config['sanic'])
 
 
-        self.resetclient = None
+        self.ctrlclient = None
         self.web_clients = []
         # self.debugclients = []
 
@@ -98,11 +98,11 @@ class Web:
                                           return_asyncio_server=True)
         task = asyncio.ensure_future(server)
 
-    async def add_vidctrl_client(self, socket):
-        if self.resetclient:
-            await self.remove_vidctrl_client(self.resetclient)
+    async def add_ctrlclient(self, socket):
+        if self.ctrlclient:
+            await self.remove_ctrlclient(self.ctrlclient)
             self.counter = 0
-        self.resetclient = socket
+        self.ctrlclient = socket
 
     def add_web_client(self, socket):
         self.web_clients.append(socket)
@@ -110,10 +110,10 @@ class Web:
     # def add_debugclient(self, socket):
     #     self.debugclients.append(socket)
     #
-    async def remove_vidctrl_client(self, socket):
+    async def remove_ctrlclient(self, socket):
         try:
-            await self.resetclient.close()
-            self.resetclient = None
+            await self.ctrlclient.close()
+            self.ctrlclient = None
         except ValueError:
             pass  # already removed
 
@@ -130,14 +130,14 @@ class Web:
     #         pass  # already removed
 
     async def send_vidctrl_client(self, data, noresp=False):
-        if self.resetclient:
+        if self.ctrlclient:
             try:
-                await self.resetclient.send(json.dumps(data))
+                await self.ctrlclient.send(json.dumps(data))
                 if noresp:
                     return
                 return await self.await_resp()
             except ConnectionClosed:
-                await self.remove_vidctrl_client(self.resetclient)
+                await self.remove_ctrlclient(self.ctrlclient)
                 return False
 
     async def send_all_webclient(self, data):

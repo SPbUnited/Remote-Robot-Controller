@@ -1,3 +1,4 @@
+import asyncio
 import os
 import json as jsons
 from sanic.response import file, json
@@ -91,9 +92,25 @@ def load_routes(web, app):
         web.add_web_client(ws)
         while True:
             try:
-                message = await ws.recv()
-                print('Got:' + message)
+
+                msg = app.bot_controller.get_state()
+                # msg = json(msg)
+                string = jsons.dumps(msg)
+                await ws.send(string)
+                await asyncio.sleep(0.5)
+
             except ConnectionClosed:
                 web.remove_webclient(ws)
                 break
 
+    @sanic.websocket('/api/ctrlclient')
+    async def api_ctrlclient(request, ws):
+        app.event_emitter.emit('client:connect')
+        web.add_ctrlclient(ws)
+        while True:
+            try:
+                message = await ws.recv()
+                print('Got:' + message)
+            except ConnectionClosed:
+                web.remove_ctrlclient(ws)
+                break

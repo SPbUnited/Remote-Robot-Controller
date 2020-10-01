@@ -9,7 +9,7 @@ from config import config
 from web import Web
 # from db.db import DB
 from .daemon import Daemon
-from bot_controller import InputListner
+from bot_controller import BotController
 # from video_controller import VideoController
 
 
@@ -36,6 +36,7 @@ class App(Daemon):
         self.loop = None
         self.web = None
         self.input_listner = None
+        self.bot_controller = None
         # self.vidctrl = None
 
         self.event_emitter = None
@@ -97,6 +98,7 @@ class App(Daemon):
 
         # event emitter
         self.event_emitter = event_emitter(self)
+        self.bot_controller = BotController(self)
 
         self.web = Web(self)
         # try:
@@ -104,7 +106,6 @@ class App(Daemon):
         # except Exception as e:
         #     print(e)
         #     self.input_listner = None
-
 
         self.event_emitter.emit('sys:init')
 
