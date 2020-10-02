@@ -50,16 +50,16 @@ class Robot:
             return 0
         if speed > 255:
             speed = 255
-        if speed < 255:
+        if speed < -255:
             speed = -255
         return int(speed)
 
     def set_speed(self, speed_x=None, speed_y=None, speed_w=None):
-        if speed_x:
+        if speed_x is not None:
             self.speed_x = self._validate_speed(speed_x)
-        if speed_y:
+        if speed_y is not None:
             self.speed_y = self._validate_speed(speed_y)
-        if speed_w:
+        if speed_w is not None:
             self.speed_w = self._validate_speed(speed_w)
         pass
 
@@ -140,7 +140,7 @@ class Robot:
                 "speed_w": self.speed_w,
 
                 "dribbler_speed": self.dribbler_speed,
-                "dribbler_en:": self.dribbler_en,
+                "dribbler_en": self.dribbler_en,
 
                 "kicker_voltage": self.kicker_voltage,
                 "charge_en": self.charge_en,

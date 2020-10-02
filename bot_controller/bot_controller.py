@@ -31,12 +31,12 @@ class BotController:
         pass
 
     def set_speed(self, speed_x=None, speed_y=None, speed_w=None):
-        if speed_x:
-            speed_x = speed_x / (self.SPEED_RANGE_COUNT - self.speed_range)
-        if speed_y:
-            speed_y = speed_y / (self.SPEED_RANGE_COUNT - self.speed_range)
-        if speed_w:
-            speed_w = speed_w / (self.SPEED_RANGE_COUNT - self.speed_range)
+        if speed_x is not None:
+            speed_x = speed_x * (self.speed_range+1)/self.SPEED_RANGE_COUNT
+        if speed_y is not None:
+            speed_y = speed_y * (self.speed_range+1)/self.SPEED_RANGE_COUNT
+        if speed_w is not None:
+            speed_w = speed_w * (self.speed_range+1)/self.SPEED_RANGE_COUNT
         self.selected_bot.set_speed(speed_x, speed_y, speed_w)
         pass
 
@@ -51,6 +51,10 @@ class BotController:
         self.speed_range += 1
         if self.speed_range >= self.SPEED_RANGE_COUNT:
             self.speed_range = 0
+        pass
+
+    def stop(self):
+        self.selected_bot.stop()
         pass
 
     def stop_all(self):

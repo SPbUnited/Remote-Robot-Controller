@@ -51,7 +51,7 @@ def load_routes(web, app):
 
     @sanic.route('/api/bot/switch_speed_range', methods=['PUT'])
     async def switch_speed_range(req):
-        app.bot_controller.switch_speed()
+        app.bot_controller.switch_speed_range()
         return json({"resp": "ok"})
 
     @sanic.route('/api/bot/toggle_dribbler', methods=['PUT'])
@@ -99,6 +99,11 @@ def load_routes(web, app):
         app.bot_controller.selected_bot.kick_down()
         return json({"resp": "ok"})
 
+    @sanic.route('/api/bot/stop_all', methods=['PUT'])
+    async def kick_down(req):
+        app.bot_controller.stop_all()
+        return json({"resp": "ok"})
+
     #  Misc
 
     @sanic.exception(NotFound, ServerError)
@@ -140,6 +145,7 @@ def load_routes(web, app):
                     web.app.bot_controller.set_speed_n_triggers(message)
 
             except ConnectionClosed:
+                web.app.bot_controller.stop()
                 web.remove_webclient(ws)
                 break
 

@@ -135,7 +135,6 @@ class App(Daemon):
         self.event_emitter.emit('sys:stop')
         self.loop.stop()
 
-
     def run(self):
 
         self.initialize()
