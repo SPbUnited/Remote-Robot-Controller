@@ -1,0 +1,3 @@
+[submodule "public/rcu-front"]
+	path = public/rcu-front
+	url = ssh://git@gitlab.kravt-studio.com:2022/footbot-2/software/rcu-front.git

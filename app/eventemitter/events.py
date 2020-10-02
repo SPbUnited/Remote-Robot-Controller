@@ -1,10 +1,33 @@
+import asyncio
+import json as jsons
+
+
 def load_events(app, ee):
     rsv = None
+
     @ee.on('sys:start')
     async def sys_start_handler():
         try:
             print('system started')
             # await app.input_listner.run()
+            await asyncio.sleep(0.5)
+
+        except Exception as e:
+            print(e)
+            pass
+
+    @ee.on('sys:start')
+    async def sys_start_handler():
+        try:
+            while True:
+                # await app.input_listner.run()
+                msg = app.bot_controller.get_state()
+                # msg = json(msg)
+                string = jsons.dumps(msg)
+                await app.web.send_all_webclient(string)
+                # await ws.send(string)
+                await asyncio.sleep(0.5)
+
         except Exception as e:
             print(e)
             pass

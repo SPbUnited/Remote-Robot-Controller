@@ -28,6 +28,22 @@ class Robot:
 
         pass
 
+    def switch_autokick(self):
+        if not self.auto_kick_en:
+            self.auto_kick_en = True
+            self.auto_kick_upper = False
+        else:
+            if not self.auto_kick_upper:
+                self.auto_kick_en = True
+                self.auto_kick_upper = True
+            else:
+                self.auto_kick_en = False
+                self.auto_kick_upper = False
+
+        pass
+
+
+
     @staticmethod
     def _validate_speed(speed):
         if speed is None:
