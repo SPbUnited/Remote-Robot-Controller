@@ -69,3 +69,13 @@ class Transmitter:
 # while True:
 #     tr.send(bytearray(b'1Node'), buff)
 # # tr.master_test()
+buff = bytearray(6 * 4)
+
+op_addr = 0x10.to_bytes(1, 'big')[0] + int(255).to_bytes(1, 'big')[0]
+
+smth = 1
+
+buff[0] = op_addr
+buff[0] = op_addr
+buff[6] = smth
+buff[0] = op_addr

@@ -1,8 +1,8 @@
 class Robot:
-    MAX_DRIBBLER_SPEED = 255
+    MAX_DRIBBLER_SPEED = 127
     DR_SPEED_STEP_COUNT = 15
 
-    MAX_CHARGE_VOLTAGE = 255
+    MAX_CHARGE_VOLTAGE = 127
     VOLTAGE_STEP_COUNT = 15
 
     MAX_SPEED_VAL = 127
@@ -128,22 +128,51 @@ class Robot:
     #  Serializes bot state
     def serialize_to_bot(self):
 
-        _packetLen = 12
+        buff = bytearray(6)
 
-        _addressPos = 0
-        _speedXPos = 1
-        _speedYPos = 2
-        _speedRPos = 3
-        _speedDribblerPos = 4
-        _kickerVoltageLevelPos = 5
-        _kickUpPos = 6
-        _kickForwardPos = 7
-        _beeperStatePos = 8
-        _dribblerEnablePos = 9
-        _kickerChargeEnablePos = 10
-        _forceKickStatePos = 11
+        packet_len = 12
+
+        address_pos = 0
+        speed_x_pos = 1
+        speed_y_pos = 2
+        speed_w_pos = 3
+        dr_spd_n_ch_voltage_pos = 4
+        flags_pos = 5
+
+        wp_frc_kick_forward = 0x40
+        wp_frc_kick_up = 0x20
+
+        011
+
+        kick_up_mask = 0x10
+        kick_down_mask = 0x08
+        beep_mask = 0x04
+        dribbler_en_mask = 0x02
+        charge_en_mask = 0x01
+
+        # speed_dribbler_pos = 4
+        # kicker_voltage_level_pos = 5
+        # kick_up_pos = 6
+        # kick_forward_pos = 7
+        # beeper_state_pos = 8
+        # dribbler_enable_pos = 9
+        # kicker_charge_enable_pos = 10
+        # force_kick_state_pos = 11
+
+        # wp_op_code = bytes(0x10)
+
+        op_addr = int(0x10).to_bytes(1, 'big')[0] + int(self.address).to_bytes(1, 'big', signed=False)[0]
+
+        buff[address_pos] = op_addr
+        buff[speed_x_pos] = self.speed_x.to_bytes(1, 'big', signed=True)[0]
+        buff[speed_y_pos] = self.speed_y.to_bytes(1, 'big', signed=True)[0]
+        buff[speed_w_pos] = self.speed_w.to_bytes(1, 'big', signed=True)[0]
+
+        buff[dr_spd_n_ch_voltage_pos] = self.dribbler_speed.to_bytes(1, 'big', signed=False)[0]
+        buff[dr_spd_n_ch_voltage_pos] += self.kicker_voltage.to_bytes(1, 'big', signed=False)[0] << 4
 
         return None
+
 
     def get_state(self):
         msg = \
