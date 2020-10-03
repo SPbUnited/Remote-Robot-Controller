@@ -5,6 +5,8 @@ class Robot:
     MAX_CHARGE_VOLTAGE = 255
     VOLTAGE_STEP_COUNT = 15
 
+    MAX_SPEED_VAL = 127
+
     def __init__(self, address):
         self.address = address
 
@@ -42,16 +44,13 @@ class Robot:
 
         pass
 
-
-
-    @staticmethod
-    def _validate_speed(speed):
+    def _validate_speed(self, speed):
         if speed is None:
             return 0
-        if speed > 255:
-            speed = 255
-        if speed < -255:
-            speed = -255
+        if speed > self.MAX_SPEED_VAL:
+            speed = self.MAX_SPEED_VAL
+        if speed < -self.MAX_SPEED_VAL:
+            speed = -self.MAX_SPEED_VAL
         return int(speed)
 
     def set_speed(self, speed_x=None, speed_y=None, speed_w=None):
@@ -128,6 +127,22 @@ class Robot:
 
     #  Serializes bot state
     def serialize_to_bot(self):
+
+        _packetLen = 12
+
+        _addressPos = 0
+        _speedXPos = 1
+        _speedYPos = 2
+        _speedRPos = 3
+        _speedDribblerPos = 4
+        _kickerVoltageLevelPos = 5
+        _kickUpPos = 6
+        _kickForwardPos = 7
+        _beeperStatePos = 8
+        _dribblerEnablePos = 9
+        _kickerChargeEnablePos = 10
+        _forceKickStatePos = 11
+
         return None
 
     def get_state(self):

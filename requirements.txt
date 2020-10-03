@@ -16,3 +16,4 @@ websocket-client
 jsonschema
 # sqlalchemy
 inputs
+circuitpython-nrf24l01

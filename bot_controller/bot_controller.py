@@ -3,7 +3,7 @@ from .robot import Robot
 
 class BotController:
     ROBOT_COUNT = 8
-    MAX_SPEED_VAL = 255
+    MAX_SPEED_VAL = Robot.MAX_SPEED_VAL
     SPEED_RANGE_COUNT = 3
 
     def __init__(self, app):
@@ -14,7 +14,7 @@ class BotController:
 
         i = 0
         while i < self.ROBOT_COUNT:
-            self.robots.append(Robot(i))
+            self.robots.append(Robot(i + 1))
             i += 1
         self.selected_bot = self.robots[self.selected_bot_index]
         pass
@@ -30,13 +30,16 @@ class BotController:
             pass
         pass
 
-    def set_speed(self, speed_x=None, speed_y=None, speed_w=None):
+    def set_speed(self, speed_x=None, speed_y=None, speed_w=None, ignore_range=False):
+        speed_multiplier = (self.speed_range + 1) / self.SPEED_RANGE_COUNT
+        if ignore_range:
+            speed_multiplier = 1
         if speed_x is not None:
-            speed_x = speed_x * (self.speed_range+1)/self.SPEED_RANGE_COUNT
+            speed_x = speed_x * speed_multiplier
         if speed_y is not None:
-            speed_y = speed_y * (self.speed_range+1)/self.SPEED_RANGE_COUNT
+            speed_y = speed_y * speed_multiplier
         if speed_w is not None:
-            speed_w = speed_w * (self.speed_range+1)/self.SPEED_RANGE_COUNT
+            speed_w = speed_w * speed_multiplier
         self.selected_bot.set_speed(speed_x, speed_y, speed_w)
         pass
 
@@ -69,6 +72,6 @@ class BotController:
                 "speed_range": self.speed_range
             }
         for robot in self.robots:
-            msg["robot_" + str(robot.address)] = robot.get_state()
+            msg["robot_" + str(robot.address - 1)] = robot.get_state()
 
         return msg
