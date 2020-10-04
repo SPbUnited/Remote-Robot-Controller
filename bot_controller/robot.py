@@ -139,11 +139,8 @@ class Robot:
         dr_spd_n_ch_voltage_pos = 4
         flags_pos = 5
 
-        wp_frc_kick_forward = 0x40
-        wp_frc_kick_up = 0x20
-
-        011
-
+        force_kick_down_mask = 0x40
+        force_kick_up_mask = 0x20
         kick_up_mask = 0x10
         kick_down_mask = 0x08
         beep_mask = 0x04
@@ -171,8 +168,15 @@ class Robot:
         buff[dr_spd_n_ch_voltage_pos] = self.dribbler_speed.to_bytes(1, 'big', signed=False)[0]
         buff[dr_spd_n_ch_voltage_pos] += self.kicker_voltage.to_bytes(1, 'big', signed=False)[0] << 4
 
-        return None
+        buff[flags_pos] = charge_en_mask * self.charge_en
+        buff[flags_pos] += dribbler_en_mask * self.dribbler_en
+        buff[flags_pos] += beep_mask * self._beep_flag
+        buff[flags_pos] += force_kick_up_mask * self._kick_up_flag  # * (not self.auto_kick_upper)
+        buff[flags_pos] += force_kick_down_mask * self._kick_down_flag  # * self.auto_kick_upper
+        buff[flags_pos] += kick_up_mask * self.auto_kick_en * self.auto_kick_upper
+        buff[flags_pos] += kick_down_mask * self.auto_kick_en * (not self.auto_kick_upper)
 
+        return buff
 
     def get_state(self):
         msg = \

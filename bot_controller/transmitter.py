@@ -10,8 +10,6 @@ class Transmitter:
 
     def __init__(self):
 
-        self.address = bytearray(b'1Node')
-
         # D10 MOSI
         # D9 MSIO
         # D8 C0EN
@@ -22,16 +20,34 @@ class Transmitter:
 
         self.nrf = RF24(spi, csn, ce)
 
+        self.nrf.data_rate = 2
+        self.nrf.crc = 2
+        self.nrf.address_length = 3
+
+        # addr
+        # uint8_t ADDR0[] = {0xAB, 0xAD, 0xAF}
+        self.address = bytearray([0xAB, 0xAD, 0xAF])
+
+        self.nrf.pa_level = 0
+        self.nrf.auto_ack = False
+
+        self.nrf.listen = False
+        self.nrf.power = True
+
+        self.nrf.open_tx_pipe(self.address)
+
         pass
 
-    def send(self, addr, buff):
-        self.nrf.open_tx_pipe(addr)
-        # ensures the nRF24L01 is in TX mode
-        self.nrf.listen = False
+    def send(self, buff, addr=None):
+        # self.nrf.open_tx_pipe(addr)
 
-        # out_buff = struct.pack(buff)
-
-        result = self.nrf.send(buff)
+        if addr is not None:
+            old_addr = self.address
+            self.address = addr
+            result = self.nrf.send(buff)
+            self.address = old_addr
+        else:
+            result = self.nrf.send(buff)
 
         return result
 
@@ -65,17 +81,19 @@ class Transmitter:
 # tr = Transmitter()
 #
 # buff = bytearray(b'123456789')
+# tr.send(buff)
+
 #
 # while True:
 #     tr.send(bytearray(b'1Node'), buff)
 # # tr.master_test()
-buff = bytearray(6 * 4)
-
-op_addr = 0x10.to_bytes(1, 'big')[0] + int(255).to_bytes(1, 'big')[0]
-
-smth = 1
-
-buff[0] = op_addr
-buff[0] = op_addr
-buff[6] = smth
-buff[0] = op_addr
+# buff = bytearray(6 * 4)
+#
+# op_addr = 0x10.to_bytes(1, 'big')[0] + int(255).to_bytes(1, 'big')[0]
+#
+# smth = 1
+#
+# buff[0] = op_addr
+# buff[0] = op_addr
+# buff[6] = smth
+# buff[0] = op_addr
