@@ -1,8 +1,8 @@
 class Robot:
-    MAX_DRIBBLER_SPEED = 127
+    MAX_DRIBBLER_SPEED = 15
     DR_SPEED_STEP_COUNT = 15
 
-    MAX_CHARGE_VOLTAGE = 127
+    MAX_CHARGE_VOLTAGE = 15
     VOLTAGE_STEP_COUNT = 15
 
     MAX_SPEED_VAL = 127
@@ -166,6 +166,7 @@ class Robot:
         buff[speed_w_pos] = self.speed_w.to_bytes(1, 'big', signed=True)[0]
 
         buff[dr_spd_n_ch_voltage_pos] = self.dribbler_speed.to_bytes(1, 'big', signed=False)[0]
+
         buff[dr_spd_n_ch_voltage_pos] += self.kicker_voltage.to_bytes(1, 'big', signed=False)[0] << 4
 
         buff[flags_pos] = charge_en_mask * self.charge_en

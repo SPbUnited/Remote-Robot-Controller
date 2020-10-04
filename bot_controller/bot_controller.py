@@ -1,4 +1,7 @@
+import asyncio
+
 from .robot import Robot
+from .transmitter import Transmitter
 
 
 class BotController:
@@ -17,6 +20,9 @@ class BotController:
             self.robots.append(Robot(i + 1))
             i += 1
         self.selected_bot = self.robots[self.selected_bot_index]
+
+        self.tx = Transmitter()
+
         pass
 
     def set_speed_n_triggers(self, msg):
@@ -75,3 +81,15 @@ class BotController:
             msg["robot_" + str(robot.address - 1)] = robot.get_state()
 
         return msg
+
+    async def bot_sender(self):
+        while True:
+            try:
+                for bot in self.robots:
+                    # self.tx.send(self.selected_bot.serialize_to_bot())
+                    self.tx.send(bot.serialize_to_bot())
+                    await asyncio.sleep(.005)
+            except Exception as e:
+                print(e)
+                continue
+        pass
