@@ -3,7 +3,7 @@ import time
 
 import board
 import digitalio as dio
-from circuitpython_nrf24l01 import RF24
+from circuitpython_nrf24l01.rf24 import RF24
 
 
 class Transmitter:
@@ -17,8 +17,11 @@ class Transmitter:
         csn = dio.DigitalInOut(board.D8)
 
         spi = board.SPI()  # init spi bus object
+        # spi.try_lock()
+        # spi.configure(baudrate=125)
+        # spi.unlock()
 
-        self.nrf = RF24(spi, csn, ce)
+        self.nrf = RF24(spi, csn, ce)  # , payload_length=6, auto_ack=False, dynamic_payloads=False)
 
         self.nrf.data_rate = 2
         self.nrf.crc = 2
@@ -27,14 +30,32 @@ class Transmitter:
         # addr
         # uint8_t ADDR0[] = {0xAB, 0xAD, 0xAF}
         self.address = bytearray([0xAB, 0xAD, 0xAF])
+        # self.address = bytearray([0xAF, 0xAD, 0xAB])
+        # self.nrf.dynamic_payloads = False
+        # self.nrf.payload_length = 7
 
         self.nrf.pa_level = 0
         self.nrf.auto_ack = False
 
+        # self.nrf.channel = 76
         self.nrf.listen = False
         self.nrf.power = True
 
         self.nrf.open_tx_pipe(self.address)
+
+        # uint8_t ADDR0[] = {0xAB, 0xAD, 0xAF}; // the address for RX pipe
+        # m_nrf24.setRfChannel(76); // set RF channel to 2400 + channel[MHz]
+        # m_nrf24.setDataRate(Nrf24DataRate::NRF24_DR_2Mbps); // 2 Mbit / s data rate
+        # m_nrf24.setCrcScheme(Nrf24Crc::NRF24_CRC_2_BYTE); // 2 - byte  CRC scheme
+        # m_nrf24.setAddrWidth(Nrf24SetupAddressWidth::NRF24_ADDRESS_WIDTH_3_BYTE); // address width is 5 bytes
+        # // m_nrf24.setAddr(Nrf24RxpipeAddresses::NRF24_PIPETX, ADDR); // program TX address
+        # m_nrf24.setAddr(Nrf24RxpipeAddresses::NRF24_PIPE0, ADDR0); // program pipe address
+        # // m_nrf24.setAddr(Nrf24RxpipeAddresses::NRF24_PIPETX, ADDR0); // program pipe address
+        # m_nrf24.setRxPipe(Nrf24RxpipeAddresses::NRF24_PIPE0, NRF24_AA_OFF, m_incomePacketLen); // enable RX pipe  # 1 with Auto-ACK: enabled, payload length: 10 bytes
+        # // m_nrf24.setTxPower(Nrf24RfPower::NRF24_TXPWR_18dBm); // configure TX power for Auto - ACK, good choice - same power level as on transmitter
+        # m_nrf24.setOperationMode(Nrf24OperationMode::NRF24_Operation_PRX); // switch transceiver to the RX mode
+        # // m_nrf24.enableAa(Nrf24RxpipeAddresses::NRF24_PIPE0);
+        # m_nrf24.setPowerMode(Nrf24Power::NRF24_PWR_UP); // wake - up transceiver( in case if it sleeping)
 
         pass
 
@@ -76,7 +97,6 @@ class Transmitter:
                   time.monotonic() * 1000 - now, 'ms')
             time.sleep(1)
             count -= 1
-
 
 # tr = Transmitter()
 #

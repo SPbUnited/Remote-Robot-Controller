@@ -1,4 +1,5 @@
 import asyncio
+import datetime
 
 from .robot import Robot
 from .transmitter import Transmitter
@@ -45,7 +46,7 @@ class BotController:
         if speed_y is not None:
             speed_y = speed_y * speed_multiplier
         if speed_w is not None:
-            speed_w = speed_w * speed_multiplier
+            speed_w = -speed_w * speed_multiplier
         self.selected_bot.set_speed(speed_x, speed_y, speed_w)
         pass
 
@@ -83,12 +84,19 @@ class BotController:
         return msg
 
     async def bot_sender(self):
+        ts = datetime.datetime.now()
         while True:
             try:
                 for bot in self.robots:
+                    # print("Before:")
+                    # print((datetime.datetime.now() - ts).microseconds)
+                    # ts = datetime.datetime.now()
                     # self.tx.send(self.selected_bot.serialize_to_bot())
                     self.tx.send(bot.serialize_to_bot())
-                    await asyncio.sleep(.005)
+                    # print("After:")
+                    # print((datetime.datetime.now() - ts).microseconds)
+                    # ts = datetime.datetime.now()
+                    await asyncio.sleep(.001)
             except Exception as e:
                 print(e)
                 continue
