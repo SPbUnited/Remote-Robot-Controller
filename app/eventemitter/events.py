@@ -27,6 +27,14 @@ def load_events(app, ee):
     @ee.on('sys:start')
     async def sys_start_handler():
         try:
+            await app.bot_controller.udp_listener()
+        except Exception as e:
+            print(e)
+            pass
+
+    @ee.on('sys:start')
+    async def sys_start_handler():
+        try:
             while True:
                 # await app.input_listner.run()
                 msg = app.bot_controller.get_state()

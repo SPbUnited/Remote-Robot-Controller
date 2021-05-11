@@ -203,3 +203,25 @@ class Robot:
                 # self._beep_flag
             }
         return msg
+
+    def set_from_api(self, data):
+
+        self.set_speed(data["speed_x"] * 1.27, data["speed_y"] * 1.27, data["speed_w"] * 1.27)
+        self.dribbler_speed = int(self.MAX_DRIBBLER_SPEED / self.DR_SPEED_STEP_COUNT * data["dribbler_speed"])
+        self.kicker_voltage = int(self.MAX_CHARGE_VOLTAGE / self.VOLTAGE_STEP_COUNT * data["kicker_voltage"])
+        self.kick_up(not data["kick_up"])
+        self.kick_down(not data["kick_down"])
+        self.beep(not data["beep"])
+        self.dribbler_en = data["dribbler_en"]
+        self.charge_en = data["charge_en"]
+
+        if data["autokick"] == 0:
+            self.auto_kick_en = False
+            self.auto_kick_upper = False
+        if data["autokick"] == 1:
+            self.auto_kick_en = True
+            self.auto_kick_upper = False
+        if data["autokick"] == 2:
+            self.auto_kick_en = True
+            self.auto_kick_upper = True
+        pass

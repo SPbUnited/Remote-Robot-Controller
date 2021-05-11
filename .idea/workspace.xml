@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="80e73f1e-b568-47df-afae-716bb5442247" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/rcu-front" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bot_controller/udp_listner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/rcu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rcu.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/eventemitter/events.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/eventemitter/events.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot_controller/bot_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_controller/bot_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot_controller/robot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_controller/robot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/routes/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/routes/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/rcu-front" beforeDir="false" afterPath="$PROJECT_DIR$/public/rcu-front" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/rcu-front/assets/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/rcu-front/assets/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +26,8 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1iCF2sCGYJ2MseV2OZO6i5JZYcu" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -35,7 +39,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/rcu-front/assets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="web.server" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -46,8 +51,8 @@
       <recent name="$PROJECT_DIR$/bot_controller" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="start" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.start">
+    <configuration name="start local" type="PythonConfigurationType" factoryName="Python">
       <module name="rcu" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -69,6 +74,60 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="start" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="rcu" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="sftp://pi@10.0.117.126:22/usr/bin/python3" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/start.py" />
+      <option name="PARAMETERS" value="console" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="transmitter" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="rcu" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bot_controller" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bot_controller/transmitter.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.start" />
+      <item itemvalue="Python.start local" />
+      <item itemvalue="Python.transmitter" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.transmitter" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -80,7 +139,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1601403462302</updated>
-      <workItem from="1601403465887" duration="27053000" />
+      <workItem from="1601403465887" duration="57030000" />
+      <workItem from="1606229387947" duration="1680000" />
+      <workItem from="1606313069595" duration="660000" />
+      <workItem from="1606326547996" duration="9000" />
+      <workItem from="1616527105064" duration="1463000" />
+      <workItem from="1617029751102" duration="572000" />
+      <workItem from="1617030379331" duration="1628000" />
+      <workItem from="1617737610585" duration="17424000" />
+      <workItem from="1620745822296" duration="9868000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <created>1601500307304</created>
@@ -96,7 +163,56 @@
       <option name="project" value="LOCAL" />
       <updated>1601572541733</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added rest routes">
+      <created>1601661976916</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1601661976916</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix in speeds mapping and misc">
+      <created>1601674392857</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1601674392857</updated>
+    </task>
+    <task id="LOCAL-00005" summary="basic transmitter and speed fix in model">
+      <created>1601760687893</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1601760687893</updated>
+    </task>
+    <task id="LOCAL-00006" summary="some troubles in serializer">
+      <created>1601764365802</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1601764365802</updated>
+    </task>
+    <task id="LOCAL-00007" summary="cinfigured NRF">
+      <created>1601834661904</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1601834661904</updated>
+    </task>
+    <task id="LOCAL-00008" summary="added bot sender">
+      <created>1601836504723</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1601836504723</updated>
+    </task>
+    <task id="LOCAL-00009" summary="reduced bot sending delay. Switched to v2 nrf24 library">
+      <created>1617825218059</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1617825218059</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -107,7 +223,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -116,77 +234,121 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="gitignore" />
     <MESSAGE value="added model and ws view route" />
-    <option name="LAST_COMMIT_MESSAGE" value="added model and ws view route" />
+    <MESSAGE value="added rest routes" />
+    <MESSAGE value="fix in speeds mapping and misc" />
+    <MESSAGE value="basic transmitter and speed fix in model" />
+    <MESSAGE value="some troubles in serializer" />
+    <MESSAGE value="Configured NRF" />
+    <MESSAGE value="added bot sender" />
+    <MESSAGE value="reduced bot sending delay. Switched to v2 nrf24 library" />
+    <option name="LAST_COMMIT_MESSAGE" value="reduced bot sending delay. Switched to v2 nrf24 library" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2338" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601411946807">
+    <state x="2338" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1617030294385">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2338" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601411946807" />
-    <state x="2568" y="344" width="614" height="398" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601496789629">
+    <state x="2338" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1617030294385" />
+    <state x="533" y="119" width="844" height="871" key="CommitChangelistDialog2" timestamp="1617825215755">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="533" y="119" width="844" height="871" key="CommitChangelistDialog2/1920.0.1920.1080/0.28.1920.1052@0.28.1920.1052" timestamp="1617825215755" />
+    <state width="1874" height="261" key="GridCell.Tab.0.bottom" timestamp="1620755478075">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="1874" height="330" key="GridCell.Tab.0.bottom/0.28.1920.1052/1920.0.1920.1080@0.28.1920.1052" timestamp="1617031354747" />
+    <state width="1874" height="262" key="GridCell.Tab.0.bottom/0.28.1920.1052/1920.0.1920.1080@1920.0.1920.1080" timestamp="1617124572129" />
+    <state width="1874" height="261" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.28.1920.1052@0.28.1920.1052" timestamp="1620755478075" />
+    <state width="1874" height="261" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1620752380099" />
+    <state width="1874" height="261" key="GridCell.Tab.0.center" timestamp="1620755478075">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="1874" height="330" key="GridCell.Tab.0.center/0.28.1920.1052/1920.0.1920.1080@0.28.1920.1052" timestamp="1617031354746" />
+    <state width="1874" height="262" key="GridCell.Tab.0.center/0.28.1920.1052/1920.0.1920.1080@1920.0.1920.1080" timestamp="1617124572129" />
+    <state width="1874" height="261" key="GridCell.Tab.0.center/1920.0.1920.1080/0.28.1920.1052@0.28.1920.1052" timestamp="1620755478075" />
+    <state width="1874" height="261" key="GridCell.Tab.0.center/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1620752380099" />
+    <state width="1874" height="261" key="GridCell.Tab.0.left" timestamp="1620755478074">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="1874" height="330" key="GridCell.Tab.0.left/0.28.1920.1052/1920.0.1920.1080@0.28.1920.1052" timestamp="1617031354746" />
+    <state width="1874" height="262" key="GridCell.Tab.0.left/0.28.1920.1052/1920.0.1920.1080@1920.0.1920.1080" timestamp="1617124572129" />
+    <state width="1874" height="261" key="GridCell.Tab.0.left/1920.0.1920.1080/0.28.1920.1052@0.28.1920.1052" timestamp="1620755478074" />
+    <state width="1874" height="261" key="GridCell.Tab.0.left/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1620752380099" />
+    <state width="1874" height="261" key="GridCell.Tab.0.right" timestamp="1620755478075">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="1874" height="330" key="GridCell.Tab.0.right/0.28.1920.1052/1920.0.1920.1080@0.28.1920.1052" timestamp="1617031354747" />
+    <state width="1874" height="262" key="GridCell.Tab.0.right/0.28.1920.1052/1920.0.1920.1080@1920.0.1920.1080" timestamp="1617124572129" />
+    <state width="1874" height="261" key="GridCell.Tab.0.right/1920.0.1920.1080/0.28.1920.1052@0.28.1920.1052" timestamp="1620755478075" />
+    <state width="1874" height="261" key="GridCell.Tab.0.right/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1620752380099" />
+    <state width="1874" height="261" key="GridCell.Tab.1.bottom" timestamp="1620755478003">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="1874" height="330" key="GridCell.Tab.1.bottom/0.28.1920.1052/1920.0.1920.1080@0.28.1920.1052" timestamp="1617031358155" />
+    <state width="1874" height="262" key="GridCell.Tab.1.bottom/0.28.1920.1052/1920.0.1920.1080@1920.0.1920.1080" timestamp="1617124572130" />
+    <state width="1874" height="261" key="GridCell.Tab.1.bottom/1920.0.1920.1080/0.28.1920.1052@0.28.1920.1052" timestamp="1620755478003" />
+    <state width="1874" height="261" key="GridCell.Tab.1.bottom/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1620752380000" />
+    <state width="1874" height="261" key="GridCell.Tab.1.center" timestamp="1620755478003">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="1874" height="330" key="GridCell.Tab.1.center/0.28.1920.1052/1920.0.1920.1080@0.28.1920.1052" timestamp="1617031358155" />
+    <state width="1874" height="262" key="GridCell.Tab.1.center/0.28.1920.1052/1920.0.1920.1080@1920.0.1920.1080" timestamp="1617124572129" />
+    <state width="1874" height="261" key="GridCell.Tab.1.center/1920.0.1920.1080/0.28.1920.1052@0.28.1920.1052" timestamp="1620755478003" />
+    <state width="1874" height="261" key="GridCell.Tab.1.center/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1620752380000" />
+    <state width="1874" height="261" key="GridCell.Tab.1.left" timestamp="1620755478003">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="1874" height="330" key="GridCell.Tab.1.left/0.28.1920.1052/1920.0.1920.1080@0.28.1920.1052" timestamp="1617031358155" />
+    <state width="1874" height="262" key="GridCell.Tab.1.left/0.28.1920.1052/1920.0.1920.1080@1920.0.1920.1080" timestamp="1617124572129" />
+    <state width="1874" height="261" key="GridCell.Tab.1.left/1920.0.1920.1080/0.28.1920.1052@0.28.1920.1052" timestamp="1620755478003" />
+    <state width="1874" height="261" key="GridCell.Tab.1.left/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1620752380000" />
+    <state width="1874" height="261" key="GridCell.Tab.1.right" timestamp="1620755478003">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="1874" height="330" key="GridCell.Tab.1.right/0.28.1920.1052/1920.0.1920.1080@0.28.1920.1052" timestamp="1617031358155" />
+    <state width="1874" height="262" key="GridCell.Tab.1.right/0.28.1920.1052/1920.0.1920.1080@1920.0.1920.1080" timestamp="1617124572129" />
+    <state width="1874" height="261" key="GridCell.Tab.1.right/1920.0.1920.1080/0.28.1920.1052@0.28.1920.1052" timestamp="1620755478003" />
+    <state width="1874" height="261" key="GridCell.Tab.1.right/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1620752380000" />
+    <state x="2285" y="94" width="1536" height="896" key="MergeDialog" timestamp="1620746471121">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2568" y="344" width="614" height="398" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601496789629" />
-    <state x="533" y="129" width="844" height="876" key="CommitChangelistDialog2" timestamp="1601572541648">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state x="533" y="129" key="CommitChangelistDialog2/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1601572541648" />
-    <state x="2453" y="105" width="844" height="876" key="CommitChangelistDialog2/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601500307168" />
-    <state x="2663" y="298" width="424" height="491" key="FileChooserDialogImpl" timestamp="1601411941685">
+    <state x="2285" y="94" width="1536" height="896" key="MergeDialog/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1620746471121" />
+    <state x="2585" y="257" width="946" height="568" key="MultipleFileMergeDialog" timestamp="1620746471128">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2663" y="298" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601411941685" />
-    <state width="1874" height="340" key="GridCell.Tab.0.bottom" timestamp="1601661692221">
+    <state x="2585" y="257" width="946" height="568" key="MultipleFileMergeDialog/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1620746471128" />
+    <state x="449" y="198" width="1022" height="732" key="SettingsEditor" timestamp="1617030433455">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="449" y="198" width="1022" height="732" key="SettingsEditor/0.28.1920.1052/1920.0.1920.1080@0.28.1920.1052" timestamp="1617030433455" />
+    <state x="2369" y="175" width="1022" height="732" key="SettingsEditor/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1617030321895" />
+    <state x="555" y="290" width="800" height="530" key="Vcs.Push.Dialog.v2" timestamp="1617825221138">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="555" y="290" width="800" height="530" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.28.1920.1052@0.28.1920.1052" timestamp="1617825221138" />
+    <state x="2652" y="460" width="455" height="162" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1620746203258">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="340" key="GridCell.Tab.0.bottom/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1601572455190" />
-    <state width="1874" height="340" key="GridCell.Tab.0.bottom/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601661692221" />
-    <state width="1874" height="340" key="GridCell.Tab.0.center" timestamp="1601661692221">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="2652" y="460" width="455" height="162" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1620746203258" />
+    <state x="330" y="257" width="1363" height="732" maximized="true" key="dock-window-1" timestamp="1620750937976">
+      <screen x="0" y="28" width="1920" height="1052" />
     </state>
-    <state width="1874" height="340" key="GridCell.Tab.0.center/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1601572455190" />
-    <state width="1874" height="340" key="GridCell.Tab.0.center/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601661692221" />
-    <state width="1874" height="340" key="GridCell.Tab.0.left" timestamp="1601661692221">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="330" y="257" width="1363" height="732" maximized="true" key="dock-window-1/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1620750937976" />
+    <state x="861" y="267" width="198" height="595" key="ftp.server.browser" timestamp="1617030430634">
+      <screen x="0" y="28" width="1920" height="1052" />
     </state>
-    <state width="1874" height="340" key="GridCell.Tab.0.left/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1601572455190" />
-    <state width="1874" height="340" key="GridCell.Tab.0.left/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601661692221" />
-    <state width="1874" height="340" key="GridCell.Tab.0.right" timestamp="1601661692221">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="340" key="GridCell.Tab.0.right/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1601572455190" />
-    <state width="1874" height="340" key="GridCell.Tab.0.right/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601661692221" />
-    <state width="1874" height="340" key="GridCell.Tab.1.bottom" timestamp="1601661692222">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="340" key="GridCell.Tab.1.bottom/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1601572460603" />
-    <state width="1874" height="340" key="GridCell.Tab.1.bottom/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601661692222" />
-    <state width="1874" height="340" key="GridCell.Tab.1.center" timestamp="1601661692221">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="340" key="GridCell.Tab.1.center/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1601572460603" />
-    <state width="1874" height="340" key="GridCell.Tab.1.center/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601661692221" />
-    <state width="1874" height="340" key="GridCell.Tab.1.left" timestamp="1601661692221">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="340" key="GridCell.Tab.1.left/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1601572460603" />
-    <state width="1874" height="340" key="GridCell.Tab.1.left/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601661692221" />
-    <state width="1874" height="340" key="GridCell.Tab.1.right" timestamp="1601661692222">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="340" key="GridCell.Tab.1.right/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1601572460603" />
-    <state width="1874" height="340" key="GridCell.Tab.1.right/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601661692222" />
-    <state x="555" y="296" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1601572545165">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state x="555" y="296" key="Vcs.Push.Dialog.v2/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1601572545165" />
-    <state x="2475" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601500384745" />
-    <state x="2544" y="182" width="670" height="676" key="search.everywhere.popup" timestamp="1601658864628">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2544" y="182" width="670" height="676" key="search.everywhere.popup/0.27.1920.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601658864628" />
+    <state x="861" y="267" width="198" height="595" key="ftp.server.browser/0.28.1920.1052/1920.0.1920.1080@0.28.1920.1052" timestamp="1617030430634" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="raw[0]" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/rcu$app.coverage" NAME="start Coverage Results" MODIFIED="1601659611617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/rcu$transmitter.coverage" NAME="transmitter Coverage Results" MODIFIED="1601835123596" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/bot_controller" />
+    <SUITE FILE_PATH="coverage/rcu$start_local.coverage" NAME="start local Coverage Results" MODIFIED="1601744180819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/rcu$app.coverage" NAME="start Coverage Results" MODIFIED="1601836323337" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/rcu$start.coverage" NAME="start Coverage Results" MODIFIED="1620755477957" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

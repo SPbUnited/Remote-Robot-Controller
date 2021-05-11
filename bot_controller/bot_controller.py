@@ -3,12 +3,14 @@ import datetime
 
 from .robot import Robot
 from .transmitter import Transmitter
+from .udp_listner import UDPListner
 
 
 class BotController:
     ROBOT_COUNT = 8
     MAX_SPEED_VAL = Robot.MAX_SPEED_VAL
     SPEED_RANGE_COUNT = 3
+    ROBOT_OFFSET = 1
 
     def __init__(self, app):
         self.robots = []
@@ -16,22 +18,36 @@ class BotController:
         self.selected_bot = None
         self.speed_range = 0
 
+        self.bot_by_number = {}
+
         i = 0
         while i < self.ROBOT_COUNT:
-            self.robots.append(Robot(i + 1))
+            self.robots.append(Robot(i + self.ROBOT_OFFSET))
+            self.bot_by_number[i + self.ROBOT_OFFSET] = self.robots[i]
             i += 1
         self.selected_bot = self.robots[self.selected_bot_index]
 
         self.tx = Transmitter()
 
+        self.udp = UDPListner()
+
+        self.old_msg = {"speed_x": None, "speed_y": None, "speed_w": None,
+                        "kick_up": None, "kick_down": None, "beep": None}
+
         pass
 
     def set_speed_n_triggers(self, msg):
         try:
-            self.set_speed(speed_x=msg["speed_x"], speed_y=msg["speed_y"], speed_w=msg["speed_w"])
-            self.selected_bot.kick_up(not msg["kick_up"])
-            self.selected_bot.kick_down(not msg["kick_down"])
-            self.selected_bot.beep(not msg["beep"])
+            for key in self.old_msg.keys():
+                if msg[key] != self.old_msg[key]:
+                    self.set_speed(speed_x=msg["speed_x"], speed_y=msg["speed_y"], speed_w=msg["speed_w"])
+                    self.selected_bot.kick_up(not msg["kick_up"])
+                    self.selected_bot.kick_down(not msg["kick_down"])
+                    self.selected_bot.beep(not msg["beep"])
+                    break
+            for key in self.old_msg.keys():
+                self.old_msg[key] = msg[key]
+
         except Exception as e:
             print(e)
             pass
@@ -96,7 +112,22 @@ class BotController:
                     # print("After:")
                     # print((datetime.datetime.now() - ts).microseconds)
                     # ts = datetime.datetime.now()
-                    await asyncio.sleep(.001)
+                    await asyncio.sleep(.002)
+            except Exception as e:
+                print(e)
+                continue
+        pass
+
+    async def udp_listener(self):
+        ts = datetime.datetime.now()
+        while True:
+            try:
+                data = await self.udp.listen()
+                if data:
+                    number = data["bot_number"] + self.ROBOT_OFFSET
+                    if number in self.bot_by_number:
+                        self.bot_by_number[number].set_from_api(data)
+                await asyncio.sleep(.002)
             except Exception as e:
                 print(e)
                 continue
