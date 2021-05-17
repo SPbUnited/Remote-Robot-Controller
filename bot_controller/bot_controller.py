@@ -95,7 +95,7 @@ class BotController:
                 "speed_range": self.speed_range
             }
         for robot in self.robots:
-            msg["robot_" + str(robot.address - 1)] = robot.get_state()
+            msg["robot_" + str(robot.address - self.ROBOT_OFFSET)] = robot.get_state()
 
         return msg
 
@@ -124,7 +124,7 @@ class BotController:
             try:
                 data = await self.udp.listen()
                 if data:
-                    number = data["bot_number"] + self.ROBOT_OFFSET
+                    number = data["bot_number"]  # + self.ROBOT_OFFSET
                     if number in self.bot_by_number:
                         self.bot_by_number[number].set_from_api(data)
                 await asyncio.sleep(.002)
