@@ -1,19 +1,19 @@
-websockets
-uvloop
-sanic
+websockets==10.4
+uvloop==0.17.0
+sanic==21.6.2
 #==18.12.0
-thespian
+thespian==3.10.7
 pyee==7.0.2
-asyncpg
-pytest
-pyyaml
-pyserial
+asyncpg==0.27.0
+pytest==7.2.2
+pyyaml==6.0
+pyserial==3.5b0
 # aiosqlite
-requests
-pyinstaller
-sanic-cors
-websocket-client
-jsonschema
+requests==2.25.1
+pyinstaller==5.8.0
+sanic-cors==1.0.1
+websocket-client==1.5.1
+jsonschema==4.17.3
 # sqlalchemy
-inputs
-circuitpython-nrf24l01
+inputs==0.5
+circuitpython-nrf24l01==2.1.0
