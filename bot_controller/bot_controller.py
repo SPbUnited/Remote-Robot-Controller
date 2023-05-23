@@ -4,6 +4,8 @@ import datetime
 from .robot import Robot
 from .transmitter import Transmitter
 from .udp_listner import UDPListner
+from .udp_transmitter import UDPTransmitter
+from .serial_listener import Serial_Listener
 
 
 class BotController:
@@ -30,6 +32,10 @@ class BotController:
         self.tx = Transmitter()
 
         self.udp = UDPListner()
+
+        self.udpT = UDPTransmitter()
+
+        self.uart = Serial_Listener()
 
         self.old_msg = {"speed_x": None, "speed_y": None, "speed_w": None,
                         "kick_up": None, "kick_down": None, "beep": None}
@@ -127,6 +133,21 @@ class BotController:
                     number = data["bot_number"]  # + self.ROBOT_OFFSET
                     if number in self.bot_by_number:
                         self.bot_by_number[number].set_from_api(data)
+                await asyncio.sleep(.002)
+            except Exception as e:
+                print(e)
+                continue
+        pass
+
+    async def serial_listener(self):
+        ts = datetime.datetime.now()
+        while True:
+            try:
+                data = await self.uart.listen()
+                if data:
+                    number = data["bot_number"]  # + self.ROBOT_OFFSET
+                    if number in self.bot_by_number:
+                        self.bot_by_number[number].set_from_serial(data)
                 await asyncio.sleep(.002)
             except Exception as e:
                 print(e)
