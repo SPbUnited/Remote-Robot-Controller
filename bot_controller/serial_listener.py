@@ -4,7 +4,7 @@ import serial
 class Serial_Listener:
 
     def __init__(self):
-        self.ser = serial.Serial('/dev/ttyACM1', 115200, timeout=1)
+        self.ser = serial.Serial('/dev/ttyAMA1', 115200, timeout=1)
         self.ser.flush()
         pass
 
