@@ -33,7 +33,7 @@ class BotController:
 
         self.udp = UDPListner()
 
-        self.udpT = UDPTransmitter()
+        #self.udpT = UDPTransmitter()
 
         self.uart = Serial_Listener()
 
