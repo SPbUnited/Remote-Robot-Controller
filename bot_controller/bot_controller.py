@@ -4,7 +4,7 @@ import datetime
 from .robot import Robot
 from .transmitter import Transmitter
 from .udp_listner import UDPListner
-from .udp_transmitter import UDPTransmitter
+# from .udp_transmitter import UDPTransmitter
 from .serial_listener import Serial_Listener
 
 
