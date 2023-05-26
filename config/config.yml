@@ -4,7 +4,7 @@ web:
   workers: 2
   debug: true
 #  public: '/home/fbk/git/footbot2/software/rcu-front'
-  public: 'public/rcu-front'
+  public: './public/rcu-front'
   sanic:
     REQUEST_TIMEOUT: 3600
     RESPONSE_TIMEOUT: 3600
