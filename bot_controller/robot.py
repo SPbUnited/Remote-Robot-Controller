@@ -12,7 +12,7 @@ class Robot:
 
         self.speed_x = 0
         self.speed_y = 0
-        self.speed_w = 0
+        self.speed_w = 69
 
         self.dribbler_speed = 0
         self.dribbler_en = False
