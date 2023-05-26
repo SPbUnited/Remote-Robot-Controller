@@ -18,7 +18,7 @@ class Robot:
         self.dribbler_en = False
 
         self.kicker_voltage = 2
-        self.charge_en = False
+        self.charge_en = True
 
         self.auto_kick_en = False
         self.auto_kick_upper = False
