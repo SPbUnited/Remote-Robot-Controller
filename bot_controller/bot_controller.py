@@ -35,7 +35,7 @@ class BotController:
 
         #self.udpT = UDPTransmitter()
 
-        #self.uart = Serial_Listener()
+        self.uart = Serial_Listener()
 
         self.old_msg = {"speed_x": None, "speed_y": None, "speed_w": None,
                         "kick_up": None, "kick_down": None, "beep": None}
