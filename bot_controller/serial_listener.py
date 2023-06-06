@@ -55,6 +55,7 @@ class Serial_Listener:
 
 
     async def listen(self):
+        print("Reading uart")
         try:
             recv = self.ser.read_until('&')
         except serial.SerialTimeoutException:
