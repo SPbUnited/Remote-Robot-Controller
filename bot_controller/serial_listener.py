@@ -1,15 +1,6 @@
 import serial
 
-
-class Serial_Listener:
-
-    def __init__(self):
-        self.ser = serial.Serial('/dev/ttyAMA1', 115200, timeout=1)
-        self.ser.flush()
-        pass
-
-
-    def crc8(buf, len):
+def crc8(buf, len):
         crc8Table = [
             0x00, 0x31, 0x62, 0x53, 0xC4, 0xF5, 0xA6, 0x97,
             0xB9, 0x88, 0xDB, 0xEA, 0x7D, 0x4C, 0x1F, 0x2E,
@@ -53,6 +44,13 @@ class Serial_Listener:
             len -= 1
         return crc
 
+class Serial_Listener:
+
+    def __init__(self):
+        self.ser = serial.Serial('/dev/ttyAMA1', 115200, timeout=1)
+        self.ser.flush()
+        pass
+
 
     async def listen(self):
         try:
@@ -60,7 +58,7 @@ class Serial_Listener:
         except serial.SerialTimeoutException:
             return None
         
-        if recv[0] != 62 and recv[4] == self.crc8(recv, 4):
+        if recv[0] != 62 and recv[4] == crc8(recv, 4):
             return None
 
         data = \
