@@ -29,7 +29,7 @@ class Robot:
         self._beep_flag = False
 
         self.robot_voltage = 0
-        self.ball_cheker = False
+        self.ball_checker = False
         pass
 
     def switch_autokick(self):
@@ -182,7 +182,7 @@ class Robot:
         buff[flags_pos] += force_kick_down_mask * self._kick_down_flag  # * self.auto_kick_upper
         buff[flags_pos] += kick_up_mask * self.auto_kick_en * self.auto_kick_upper
         buff[flags_pos] += kick_down_mask * self.auto_kick_en * (not self.auto_kick_upper)
-        buff[flags_pos] += ball_mask * self.ball_cheker
+        buff[flags_pos] += ball_mask * self.ball_checker
 
         return buff
 
@@ -205,7 +205,7 @@ class Robot:
                 "auto_kick_upper": self.auto_kick_upper,
 
                 "robot_voltage": self.robot_voltage,
-                "ball_cheker": self.ball_cheker
+                "ball_checker": self.ball_checker
 
                 # Instant actions flags
                 # self._kick_up_flag ,
@@ -238,5 +238,5 @@ class Robot:
     
     def set_from_serial(self, data):
         self.robot_voltage = data["robot_voltage"]
-        self.ball_cheker = data["ball_cheker"]
+        self.ball_checker = data["ball_checker"]
         pass

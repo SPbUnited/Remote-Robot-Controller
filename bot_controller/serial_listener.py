@@ -77,7 +77,7 @@ class Serial_Listener:
                 # "autokick": int.from_bytes(raw[12], byteorder="big", signed=False)
                 "bot_number": recv[1],
                 "robot_voltage": recv[2],
-                "ball_cheker": recv[3]
+                "ball_checker": recv[3]
 
             }
 
