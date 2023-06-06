@@ -61,7 +61,7 @@ class Serial_Listener:
         except serial.SerialTimeoutException:
             return None
         
-        if recv[0] != 0x17 and recv[4] == self.crc8(recv, 4):
+        if recv[0] != 62 and recv[4] == self.crc8(recv, 4):
             return None
 
         data = \
