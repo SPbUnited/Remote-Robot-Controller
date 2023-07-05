@@ -1,4 +1,4 @@
-import aioserial
+import serial
 
 def crc8(buf, len):
         crc8Table = [
@@ -47,7 +47,7 @@ def crc8(buf, len):
 class Serial_Listener:
 
     def __init__(self):
-        self.ser = aioserial.AioSerial = aioserial.AioSerial(port='/dev/ttyAMA1', baudrate=115200)
+        self.ser = serial.Serial('/dev/ttyAMA1', 115200, timeout = 5)
         self.ser.flush()
         pass
 
@@ -55,10 +55,10 @@ class Serial_Listener:
     async def listen(self):
         try:
             if self.ser.in_waiting != 0:
-                recv = self.ser.read_until_async('&')
+                recv = self.ser.read_until('&')
             else:
                 return None
-        except:
+        except serial.SerialTimeoutException:
             return None
         
         if recv[0] != 62 and recv[4] == crc8(recv, 4):
