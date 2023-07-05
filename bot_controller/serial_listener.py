@@ -54,7 +54,7 @@ class Serial_Listener:
 
     async def listen(self):
         try:
-            if self.ser.in_waiting() != 0:
+            if self.ser.in_waiting != 0:
                 recv = self.ser.read_until('&')
         except serial.SerialTimeoutException:
             return None
