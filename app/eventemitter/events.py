@@ -36,7 +36,7 @@ def load_events(app, ee):
     async def sys_start_handler():
         try:
             await app.bot_controller.serial_listener()
-            #await asyncio.sleep(0.1)
+            await asyncio.sleep(0.1)
         except Exception as e:
             print(e)
             pass
