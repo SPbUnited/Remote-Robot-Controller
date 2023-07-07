@@ -58,7 +58,7 @@ class Serial_Listener:
 
             while True:
                 data = await self.ser.read_async()
-                print(data.decode(errors='ignore'), end='', flush=True)
+                print(data)
                 if b'\n' in data:
                     self.ser.close()
                     break
