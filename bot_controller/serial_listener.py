@@ -66,7 +66,7 @@ class Serial_Listener:
             while(True):
                 tmpB = int.from_bytes(await self.ser.read_async(), "big")
                 print(tmpB)
-                if tmpB == '&':
+                if tmpB == 38:
                     print(recv)
                     break
                 recv.append(tmpB)
