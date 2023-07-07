@@ -53,13 +53,21 @@ class Serial_Listener:
 
 
     async def listen(self):
+        recv = []
         try:
-            if self.ser.in_waiting != 0:
-                recv = await self.ser.read_until_async('&')
-                print("here 1")
-                print(recv)
-            else:
-                return None
+
+            while(True):
+                tmpB = await self.ser.read_async()
+                if tmpB == '&':
+                    break
+                recv.append(tmpB)
+
+            # if self.ser.in_waiting != 0:
+            #     recv = await self.ser.read_until_async('&')
+            #     print("here 1")
+            #     print(recv)
+            # else:
+            #     return None
         except:
             return None
         
