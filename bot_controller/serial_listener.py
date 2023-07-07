@@ -64,7 +64,7 @@ class Serial_Listener:
             #         break
 
             while(True):
-                tmpB = (await self.ser.read_async().decode())
+                tmpB = (await self.ser.read_async()).decode()
                 print(tmpB)
                 if tmpB == '&':
                     print(recv)
