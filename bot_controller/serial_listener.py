@@ -56,11 +56,18 @@ class Serial_Listener:
         recv = []
         try:
 
-            while(True):
-                tmpB = await self.ser.read_async()
-                if tmpB == '&':
+            while True:
+                data = await self.ser.read_async()
+                print(data.decode(errors='ignore'), end='', flush=True)
+                if b'\n' in data:
+                    self.ser.close()
                     break
-                recv.append(tmpB)
+
+            # while(True):
+            #     tmpB = await self.ser.read_async()
+            #     if tmpB == '&':
+            #         break
+            #     recv.append(tmpB)
 
             # if self.ser.in_waiting != 0:
             #     recv = await self.ser.read_until_async('&')
