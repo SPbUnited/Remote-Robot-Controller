@@ -78,7 +78,7 @@ class Serial_Listener:
             #     return None
         except:
             return None
-        
+        print(recv)
         if recv[0] != 62 and recv[4] == crc8(recv, 4):
             return None
 
