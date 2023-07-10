@@ -55,31 +55,14 @@ class Serial_Listener:
     async def listen(self):
         recv = []
         try:
-
-            # while True:
-            #     data = await self.ser.read_async()
-            #     print(data)
-            #     if b'\n' in data:
-            #         self.ser.close()
-            #         break
-
             while(True):
                 tmpB = int.from_bytes(await self.ser.read_async(), "big")
-                print(tmpB)
                 if tmpB == 38:
-                    print(recv)
                     break
                 recv.append(tmpB)
-
-            # if self.ser.in_waiting != 0:
-            #     recv = await self.ser.read_until_async('&')
-            #     print("here 1")
-            #     print(recv)
-            # else:
-            #     return None
         except:
             return None
-        print(recv)
+        
         if recv[0] != 62 and recv[4] == crc8(recv, 4):
             return None
 
