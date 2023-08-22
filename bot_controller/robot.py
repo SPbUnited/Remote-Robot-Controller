@@ -12,13 +12,13 @@ class Robot:
 
         self.speed_x = 0
         self.speed_y = 0
-        self.speed_w = 69
+        self.speed_w = 0
 
         self.dribbler_speed = 0
         self.dribbler_en = False
 
-        self.kicker_voltage = 2
-        self.charge_en = True
+        self.kicker_voltage = 0
+        self.charge_en = False
 
         self.auto_kick_en = False
         self.auto_kick_upper = False
