@@ -139,11 +139,11 @@ class Robot:
         speed_y_pos = 2
         speed_w_pos = 3
         dr_spd_n_ch_voltage_pos = 4
-        robot_voltage_pos = 5
-        flags_pos = 6
+        # robot_voltage_pos = 5
+        flags_pos = 5
 
 
-        ball_mask = 0x80
+        # ball_mask = 0x80
         force_kick_down_mask = 0x40
         force_kick_up_mask = 0x20
         kick_up_mask = 0x10
@@ -169,7 +169,7 @@ class Robot:
         buff[speed_x_pos] = self.speed_x.to_bytes(1, 'big', signed=True)[0]
         buff[speed_y_pos] = self.speed_y.to_bytes(1, 'big', signed=True)[0]
         buff[speed_w_pos] = self.speed_w.to_bytes(1, 'big', signed=True)[0]
-        buff[robot_voltage_pos] = self.robot_voltage.to_bytes(1, 'big', signed=True)[0]
+        # buff[robot_voltage_pos] = self.robot_voltage.to_bytes(1, 'big', signed=True)[0]
 
         buff[dr_spd_n_ch_voltage_pos] = self.dribbler_speed.to_bytes(1, 'big', signed=False)[0]
 
@@ -182,7 +182,7 @@ class Robot:
         buff[flags_pos] += force_kick_down_mask * self._kick_down_flag  # * self.auto_kick_upper
         buff[flags_pos] += kick_up_mask * self.auto_kick_en * self.auto_kick_upper
         buff[flags_pos] += kick_down_mask * self.auto_kick_en * (not self.auto_kick_upper)
-        buff[flags_pos] += ball_mask * self.ball_checker
+        # buff[flags_pos] += ball_mask * self.ball_checker
 
         return buff
 
