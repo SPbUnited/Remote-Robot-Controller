@@ -130,7 +130,7 @@ class Robot:
     #  Serializes bot state
     def serialize_to_bot(self):
 
-        buff = bytearray(7)
+        buff = bytearray(6)
 
         packet_len = 12
 
