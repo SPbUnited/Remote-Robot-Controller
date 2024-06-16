@@ -162,6 +162,7 @@ class Robot:
         # force_kick_state_pos = 11
 
         # wp_op_code = bytes(0x10)
+#        print(self.speed_x, self.speed_y)
 
         op_addr = int(0x10).to_bytes(1, 'big')[0] + int(self.address).to_bytes(1, 'big', signed=False)[0]
 

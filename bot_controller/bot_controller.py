@@ -12,7 +12,7 @@ class BotController:
     ROBOT_COUNT = 8
     MAX_SPEED_VAL = Robot.MAX_SPEED_VAL
     SPEED_RANGE_COUNT = 3
-    ROBOT_OFFSET = 1
+    ROBOT_OFFSET = 8
 
     def __init__(self, app):
         self.robots = []
@@ -133,7 +133,7 @@ class BotController:
                     number = data["bot_number"]  # + self.ROBOT_OFFSET
                     if number in self.bot_by_number:
                         self.bot_by_number[number].set_from_api(data)
-                await asyncio.sleep(.002)
+                await asyncio.sleep(.0002)
             except Exception as e:
                 print(e)
                 continue

@@ -8,17 +8,19 @@ class UDPListner:
         UDP_IP = "0.0.0.0"
         UDP_PORT = 10000
         self.sock.bind((UDP_IP, UDP_PORT))
-        self.sock.settimeout(.002)
+        self.sock.setblocking(False)
+#        self.sock.settimeout(.002)
         pass
 
     async def listen(self):
         try:
             raw, addr = self.sock.recvfrom(13)
-        except socket.timeout:
+        except:# socket.timeout:
+#            pass
             return None
         if raw[0] != 0x01:
             return None
-
+        print(raw)
         data = \
             {
                 # "bot_number": int.from_bytes(raw[1], byteorder="big", signed=False),

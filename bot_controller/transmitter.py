@@ -37,12 +37,12 @@ class Transmitter:
         self.nrf.pa_level = 0
         self.nrf.auto_ack = False
 
-        # self.nrf.channel = 76
+        self.nrf.channel = 83
         self.nrf.listen = False
         self.nrf.power = True
 
         self.nrf.open_tx_pipe(self.address)
-
+        self.nrf.print_details(True)
         # uint8_t ADDR0[] = {0xAB, 0xAD, 0xAF}; // the address for RX pipe
         # m_nrf24.setRfChannel(76); // set RF channel to 2400 + channel[MHz]
         # m_nrf24.setDataRate(Nrf24DataRate::NRF24_DR_2Mbps); // 2 Mbit / s data rate
