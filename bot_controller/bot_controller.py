@@ -129,7 +129,9 @@ class BotController:
         while True:
             try:
                 data = await self.udp.listen()
-                if data:
+                if "debug_override" in data:
+                    self.tx.send(data["payload"])
+                elif data:
                     number = data["bot_number"]  # + self.ROBOT_OFFSET
                     if number in self.bot_by_number:
                         self.bot_by_number[number].set_from_api(data)
