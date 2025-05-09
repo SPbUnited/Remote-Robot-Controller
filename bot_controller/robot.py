@@ -37,6 +37,7 @@ class Robot:
 
         self.robot_voltage = 0
         self.ball_checker = False
+        self.data = bytearray(0)
         pass
 
     def switch_autokick(self):
@@ -193,7 +194,7 @@ class Robot:
 
         return buff
 
-    def serialize_to_bot(self):
+    def serialize_to_bot_ws(self):
 
         buff = bytearray(8)
 
@@ -315,3 +316,5 @@ class Robot:
         self.robot_voltage = data["robot_voltage"]
         self.ball_checker = data["ball_checker"]
         pass
+    def send_arr(self):
+        return self.data

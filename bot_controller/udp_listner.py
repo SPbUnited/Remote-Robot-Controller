@@ -1,16 +1,27 @@
-import socket
-
+# import socket
+import zmq
 
 class UDPListner:
 
     def __init__(self):
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        UDP_IP = "0.0.0.0"
-        UDP_PORT = 10000
-        self.sock.bind((UDP_IP, UDP_PORT))
-        self.sock.settimeout(.002)
+        # self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        # UDP_IP = "0.0.0.0"
+        # UDP_PORT = 10000
+        # self.sock.bind((UDP_IP, UDP_PORT))
+        # self.sock.settimeout(.002)
+        self.context = zmq.Context()
+        self.socket = context.socket(zmq.REP)
+        self.socket.bind("tcp://*:5555")
         pass
 
+    async def listend_array(self):
+        try:
+            message = self.socket.recv()
+            # message['id']
+            return message['id'], message['type'], message['data'], message['freq']
+        except: pass
+
+    
     async def listen(self):
         try:
             raw, addr = self.sock.recvfrom(13)

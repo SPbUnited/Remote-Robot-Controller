@@ -40,6 +40,8 @@ class BotController:
         self.old_msg = {"speed_x": None, "speed_y": None, "speed_w": None,
                         "kick_up": None, "kick_down": None, "beep": None}
 
+
+        self.task_list = {}
         pass
 
     def set_speed_n_triggers(self, msg):
@@ -105,35 +107,43 @@ class BotController:
 
         return msg
 
-    async def bot_sender(self):
+    async def bot_sender(self, data):
         ts = datetime.datetime.now()
-        while True:
-            try:
-                for bot in self.robots:
-                    # print("Before:")
-                    # print((datetime.datetime.now() - ts).microseconds)
-                    # ts = datetime.datetime.now()
-                    # self.tx.send(self.selected_bot.serialize_to_bot())
-                    self.tx.send(bot.serialize_to_bot())
-                    # print("After:")
-                    # print((datetime.datetime.now() - ts).microseconds)
-                    # ts = datetime.datetime.now()
-                    await asyncio.sleep(.002)
-            except Exception as e:
-                print(e)
-                continue
+        # while True:
+        try:
+            for bot in self.robots:
+                # print("Before:")
+                # print((datetime.datetime.now() - ts).microseconds)
+                # ts = datetime.datetime.now()
+                # self.tx.send(self.selected_bot.serialize_to_bot())
+                self.tx.send(data)
+                # print("After:")
+                # print((datetime.datetime.now() - ts).microseconds)
+                # ts = datetime.datetime.now()
+                # await asyncio.sleep(.002)
+        except Exception as e:
+            print(e)
+            # continue
         pass
 
+    async def periodic(interval_sec, coro_name, *args, **kwargs):
+        while True:
+            await asyncio.sleep(interval_sec)
+            await coro_name(*args, **kwargs)
+    
     async def udp_listener(self):
         ts = datetime.datetime.now()
         while True:
             try:
-                data = await self.udp.listen()
+                r_id, cmd_type, data, freq = await self.udp.listend_array()
                 if data:
-                    number = data["bot_number"]  # + self.ROBOT_OFFSET
-                    if number in self.bot_by_number:
-                        self.bot_by_number[number].set_from_api(data)
-                await asyncio.sleep(.002)
+                    # number = r_id  # + self.ROBOT_OFFSET
+                    if r_id in self.bot_by_number:
+                        if cmd_type in self.task_list:
+                            self.task_list[cmd_type].cancel()
+                            # self.bot_by_number[r_id].set_from_api(data)
+                        asyncio.create_task(self.periodic(1.0 / freq, self.bot_by_number[r_id].send_arr, data))
+                await asyncio.sleep(.0001)
             except Exception as e:
                 print(e)
                 continue
@@ -153,3 +163,4 @@ class BotController:
                 print(e)
                 continue
         pass
+
