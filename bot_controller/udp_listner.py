@@ -10,8 +10,9 @@ class UDPListner:
         # self.sock.bind((UDP_IP, UDP_PORT))
         # self.sock.settimeout(.002)
         self.context = zmq.Context()
-        self.socket = context.socket(zmq.REP)
-        self.socket.bind("tcp://*:5555")
+        self.socket = self.context.socket(zmq.SUB)
+        self.socket.bind("tcp://*:8001")
+        self.socket.setsockopt_string(zmq.SUBSCRIBE, "")
         pass
 
     async def listend_array(self):
