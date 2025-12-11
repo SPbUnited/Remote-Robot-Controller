@@ -20,6 +20,7 @@ def load_events(app, ee):
     async def sys_start_handler():
         try:
             await app.bot_controller.bot_sender()
+            a =2
         except Exception as e:
             print(e)
             pass
@@ -28,6 +29,7 @@ def load_events(app, ee):
     async def sys_start_handler():
         try:
             await app.bot_controller.udp_listener()
+            a =2
         except Exception as e:
             print(e)
             pass
@@ -35,7 +37,8 @@ def load_events(app, ee):
     @ee.on('sys:start')
     async def sys_start_handler():
         try:
-            await app.bot_controller.serial_listener()
+            # await app.bot_controller.serial_listener()
+            a =3 
             # await asyncio.sleep(0.1)
         except Exception as e:
             print(e)

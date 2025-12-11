@@ -109,12 +109,15 @@ class BotController:
         ts = datetime.datetime.now()
         while True:
             try:
+                print('au')
                 for bot in self.robots:
                     # print("Before:")
                     # print((datetime.datetime.now() - ts).microseconds)
                     # ts = datetime.datetime.now()
                     # self.tx.send(self.selected_bot.serialize_to_bot())
+                    print('ale')
                     self.tx.send(bot.serialize_to_bot())
+                    
                     # print("After:")
                     # print((datetime.datetime.now() - ts).microseconds)
                     # ts = datetime.datetime.now()
@@ -131,7 +134,7 @@ class BotController:
                 data = await self.udp.listen()
                 if "debug_override" in data:
                     self.tx.send(data["payload"])
-                elif data:
+                elif data is not None:
                     number = data["bot_number"]  # + self.ROBOT_OFFSET
                     if number in self.bot_by_number:
                         self.bot_by_number[number].set_from_api(data)

@@ -56,5 +56,6 @@ class UDPListner:
                 "debug_override": True,
                 "payload": raw[1:]
             }
+            return data
         
         return None
