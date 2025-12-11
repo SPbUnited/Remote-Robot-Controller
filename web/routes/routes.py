@@ -101,7 +101,7 @@ def load_routes(web, app):
 
     @sanic.route('/api/bot/stop_all', methods=['PUT'])
     async def kick_down(req):
-        app.bot_controller.stop_all()
+    #    app.bot_controller.stop_all()
         return json({"resp": "ok"})
 
     #  Misc
