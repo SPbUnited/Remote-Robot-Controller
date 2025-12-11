@@ -1,2 +1,8 @@
 /venv/
 /.idea/
+__pycache__/
+/bot_controller/__pycache__/
+# rcu-front/
+y
+y.pub
+*.pyc
