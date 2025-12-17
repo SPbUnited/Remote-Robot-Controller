@@ -12,7 +12,7 @@ class BotController:
     ROBOT_COUNT = 8
     MAX_SPEED_VAL = Robot.MAX_SPEED_VAL
     SPEED_RANGE_COUNT = 3
-    ROBOT_OFFSET = 8
+    ROBOT_OFFSET = 248
 
     def __init__(self, app):
         self.robots = []
@@ -108,20 +108,20 @@ class BotController:
     async def bot_sender(self):
         ts = datetime.datetime.now()
         while True:
+            await asyncio.sleep(.002)
             try:
-                print('au')
+                # print('au')
                 for bot in self.robots:
                     # print("Before:")
                     # print((datetime.datetime.now() - ts).microseconds)
                     # ts = datetime.datetime.now()
                     # self.tx.send(self.selected_bot.serialize_to_bot())
-                    print('ale')
+                    # print('ale')
                     self.tx.send(bot.serialize_to_bot())
                     
                     # print("After:")
                     # print((datetime.datetime.now() - ts).microseconds)
                     # ts = datetime.datetime.now()
-                    await asyncio.sleep(.002)
             except Exception as e:
                 print(f"Exception 2 in {__file__}: {str(e)}")
                 continue
@@ -149,13 +149,13 @@ class BotController:
     async def serial_listener(self):
         ts = datetime.datetime.now()
         while True:
+            await asyncio.sleep(.002)
             try:
                 data = await self.uart.listen()
                 if data:
                     number = data["bot_number"]  # + self.ROBOT_OFFSET
                     if number in self.bot_by_number:
                         self.bot_by_number[number].set_from_serial(data)
-                await asyncio.sleep(.002)
             except Exception as e:
                 print(f"Exception 4 in {__file__}: {str(e)}")
                 continue

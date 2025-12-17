@@ -18,6 +18,7 @@ jsonschema==4.17.3
 inputs==0.5
 circuitpython-nrf24l01==2.1.0
 aioserial
+honcho
 
 # uvloop
 # pyee

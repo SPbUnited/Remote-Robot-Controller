@@ -147,8 +147,34 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Запуск
+### Настройка автозапуска
+
+```bash
+sudo apt install supervisor
+
+cd ~/rcu/supervisor
+sudo ln rcu.conf /etc/supervisor/conf.d/
+
+sudo supervisorctl reread
+sudo supervisorctl update
+```
+
+## Ручной запуск
+
+### Все сразу
+
+```bash
+honcho start
+```
+
+### Только бекэнд
 
 ```bash
 python3 start.py console
+```
+
+### Только фронтэнд
+
+```bash
+./chrome.sh # При первом запуске спросит пароль для new keyring. Можно оставить пустым
 ```

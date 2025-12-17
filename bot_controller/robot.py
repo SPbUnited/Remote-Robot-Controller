@@ -164,7 +164,7 @@ class Robot:
         # wp_op_code = bytes(0x10)
 #        print(self.speed_x, self.speed_y)
 
-        op_addr = int(0x10).to_bytes(1, 'big')[0] + int(self.address).to_bytes(1, 'big', signed=False)[0]
+        op_addr = int(self.address).to_bytes(1, 'big', signed=False)[0]
 
         buff[address_pos] = op_addr
         buff[speed_x_pos] = self.speed_x.to_bytes(1, 'big', signed=True)[0]
@@ -217,7 +217,7 @@ class Robot:
 
     def set_from_api(self, data):
 
-        self.set_speed(data["speed_x"] * 1.27, data["speed_y"] * 1.27, data["speed_w"] * 1.27)
+        self.set_speed(data["speed_x"], data["speed_y"], data["speed_w"])
         self.dribbler_speed = int(self.MAX_DRIBBLER_SPEED / self.DR_SPEED_STEP_COUNT * data["dribbler_speed"])
         self.kicker_voltage = int(self.MAX_CHARGE_VOLTAGE / self.VOLTAGE_STEP_COUNT * data["kicker_voltage"])
         self.kick_up(not data["kick_up"])
