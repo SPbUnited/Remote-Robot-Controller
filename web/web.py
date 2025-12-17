@@ -56,7 +56,7 @@ class Web:
 
                     return response.json(result)
                 except ServerError as e:
-                    print(e)
+                    print(f"Exception 1 in {__file__}: {str(e)}")
                     error = ServerError(
                         data=e.params,
                         message='Api command error',
@@ -65,7 +65,7 @@ class Web:
                         code=400
                     )
                 except (ServerError, ServerError, ServerError) as e:
-                    print(e)
+                    print(f"Exception 2 in {__file__}: {str(e)}")
                     error = ServerError(
                         data=e.to_json(),
                         error=e.__class__.__name__,
@@ -73,7 +73,7 @@ class Web:
                         trace=traceback.format_exc().split('\n')
                     )
                 except Exception as e:
-                    print(e)
+                    print(f"Exception 3 in {__file__}: {str(e)}")
                     error = ServerError(
                         data={'message': e.args[0]} if hasattr(e, 'args') and len(e.args) > 0 else e.__dict__,
                         error=e.__class__.__name__,

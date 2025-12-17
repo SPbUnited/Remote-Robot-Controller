@@ -55,7 +55,7 @@ class BotController:
                 self.old_msg[key] = msg[key]
 
         except Exception as e:
-            print(e)
+            print(f"Exception 1 in {__file__}: {str(e)}")
             pass
         pass
 
@@ -123,24 +123,26 @@ class BotController:
                     # ts = datetime.datetime.now()
                     await asyncio.sleep(.002)
             except Exception as e:
-                print(e)
+                print(f"Exception 2 in {__file__}: {str(e)}")
                 continue
         pass
 
     async def udp_listener(self):
         ts = datetime.datetime.now()
         while True:
+            await asyncio.sleep(.0002)
             try:
                 data = await self.udp.listen()
+                if data is None:
+                    continue
                 if "debug_override" in data:
                     self.tx.send(data["payload"])
                 elif data is not None:
                     number = data["bot_number"]  # + self.ROBOT_OFFSET
                     if number in self.bot_by_number:
                         self.bot_by_number[number].set_from_api(data)
-                await asyncio.sleep(.0002)
             except Exception as e:
-                print(e)
+                print(f"Exception 3 in {__file__}: {str(e)}")
                 continue
         pass
 
@@ -155,6 +157,6 @@ class BotController:
                         self.bot_by_number[number].set_from_serial(data)
                 await asyncio.sleep(.002)
             except Exception as e:
-                print(e)
+                print(f"Exception 4 in {__file__}: {str(e)}")
                 continue
         pass

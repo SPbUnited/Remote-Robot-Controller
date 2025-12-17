@@ -125,7 +125,7 @@ class App(Daemon):
             self.event_emitter.emit('sys:stop')
             self.loop.stop()
         except Exception as e:
-            print(str(e))
+            print(f"Exception in {__file__}: {str(e)}")
             self.event_emitter.emit('sys:error')
             self.event_emitter.emit('sys:stop')
             self.loop.stop()
@@ -147,7 +147,7 @@ class App(Daemon):
         try:
             self.loop.run_forever()
         except Exception as e:
-            print(str(e))
+            print(f"Exception in {__file__}: {str(e)}")
             self.event_emitter.emit('sys:error')
             self.stop()
 

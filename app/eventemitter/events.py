@@ -13,7 +13,7 @@ def load_events(app, ee):
             await asyncio.sleep(0.5)
 
         except Exception as e:
-            print(e)
+            print(f"Exception 1 in {__file__}: {str(e)}")
             pass
 
     @ee.on('sys:start')
@@ -22,7 +22,7 @@ def load_events(app, ee):
             await app.bot_controller.bot_sender()
             a =2
         except Exception as e:
-            print(e)
+            print(f"Exception 2 in {__file__}: {str(e)}")
             pass
 
     @ee.on('sys:start')
@@ -31,7 +31,7 @@ def load_events(app, ee):
             await app.bot_controller.udp_listener()
             a =2
         except Exception as e:
-            print(e)
+            print(f"Exception 3 in {__file__}: {str(e)}")
             pass
 
     @ee.on('sys:start')
@@ -41,7 +41,7 @@ def load_events(app, ee):
             a =3 
             # await asyncio.sleep(0.1)
         except Exception as e:
-            print(e)
+            print(f"Exception 4 in {__file__}: {str(e)}")
             pass
 
         
@@ -59,7 +59,7 @@ def load_events(app, ee):
                 await asyncio.sleep(0.1)
 
         except Exception as e:
-            print(e)
+            print(f"Exception 5 in {__file__}: {str(e)}")
             pass
 
     @ee.on('sys:stop')
