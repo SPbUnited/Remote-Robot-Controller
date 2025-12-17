@@ -31,7 +31,29 @@
 
 ### Клонирование репозитория
 
+#### Выпуск ключа для развертывания (Deploy key)
 
+```bash
+mkdir .ssh
+cd .ssh
+ssh-keygen
+<Enter>x3
+cat id_ed25519.pub
+# Скопировать вывод команды. Он должен быть примерно таким:
+# ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGGh9nHIX0ZH2xIPKUWfJ6XLmzL4VeettdvTZR5BKw+q ssl@raspberrypi
+
+# НИ В КОЕМ СЛУЧАЕ НЕ КОПИРУЕМ ПРИВАТНЫЙ КЛЮЧ (файл без разширения .pub)
+```
+
+#### Привязывание ключа
+
+Открываем настройки ключей развертывания:
+
+https://github.com/SPbUnited/Remote-Robot-Controller/settings/keys
+
+Нажимаем `Add deploy key`. В поле `Key` вставляем содержимое файла `id_ed25519.pub`. В поле `Title` вводим название ключа, например `Control box 220`.
+
+Ставим галочку `Allow write access`. Нажимаем `Add key`.
 
 ## Запуск
 
