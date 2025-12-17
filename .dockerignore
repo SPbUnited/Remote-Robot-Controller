@@ -1,0 +1,17 @@
+# Ignore version control directories
+.git
+.gitignore
+
+# Ignore dependency folders (common in Node.js/Python)
+node_modules/
+__pycache__/
+
+# Ignore logs and temp files
+*.log
+*.tmp
+temp/
+
+# Ignore Docker-specific files themselves (don't send them to the builder)
+.dockerignore
+Dockerfile
+docker-compose.yml

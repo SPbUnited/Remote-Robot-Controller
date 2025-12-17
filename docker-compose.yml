@@ -1,0 +1,10 @@
+services:
+  rcu:
+    build: .
+    ports:
+      - "8001:8001"
+    volumes:
+      - "/dev:/dev"
+      - ".:/rcu"
+    entrypoint: python3 /rcu/start.py
+    privileged: true
