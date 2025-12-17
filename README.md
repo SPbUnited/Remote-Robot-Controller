@@ -36,14 +36,82 @@
 # https://unix.stackexchange.com/a/400176
 sudo date -s "$(wget --method=HEAD -qSO- --max-redirect=0 google.com 2>&1 | sed -n 's/^ *Date: *//p')"
 ```
+<!-- 
+### Установка Docker
+
+https://docs.docker.com/engine/install/ubuntu/
+
+```
+curl -sSL https://get.docker.com | sh
+
+sudo sh -eux <<EOF
+# Install newuidmap & newgidmap binaries
+apt-get install -y uidmap
+EOF
+
+dockerd-rootless-setuptool.sh install
+``` -->
+
+### Установка подходящей версии Python
+
+```bash
+# install pyenv
+# https://github.com/pyenv/pyenv
+curl -fsSL https://pyenv.run | bash
+
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(pyenv init - bash)"' >> ~/.bashrc
+
+exec "$SHELL"
+```
+
+```bash
+# install python build essentials
+# https://github.com/pyenv/pyenv/wiki#suggested-build-environment
+sudo apt update; sudo apt install make build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev curl git \
+libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+```
+
+```bash
+# install python 3.9.2
+pyenv install 3.9.2
+pyenv global 3.9.2
+```
+
+### Установка библиотеки lgpio
+
+```bash
+# https://abyz.me.uk/lg/download.html
+
+cd ~/Downloads
+wget http://abyz.me.uk/lg/lg.zip
+unzip lg.zip
+cd lg
+make
+sudo make install
+```
+
+### Включение SPI
+
+```bash
+sudo sed -i "s/#dtparam=spi=on/dtparam=spi=on/" /boot/firmware/config.txt
+
+sudo vi /boot/firmware/config.txt
+# https://raspberrypi.stackexchange.com/a/147321
+# add "dtoverlay=spi0-0cs" to the same file
+
+sudo reboot
+```
 
 ### Клонирование репозитория
 
 #### Выпуск ключа для развертывания (Deploy key)
 
 ```bash
-mkdir .ssh
-cd .ssh
+mkdir ~/.ssh
+cd ~/.ssh
 ssh-keygen
 <Enter>x3
 cat id_ed25519.pub
@@ -63,13 +131,16 @@ https://github.com/SPbUnited/Remote-Robot-Controller/settings/keys
 
 Ставим галочку `Allow write access`. Нажимаем `Add key`.
 
-
-#### Клонирование репозитория
+#### Развертывание окружения
 
 ```bash
 cd ~
 git clone --branch <version-name> git@github.com:SPbUnited/Remote-Robot-Controller.git rcu
 cd rcu
+
+# sudp apt update
+# sudo apt install swig python3-dev python3-setuptools build-essential
+# sudo apt install python3-lgpio
 
 python3 -m venv venv
 source venv/bin/activate
@@ -78,6 +149,6 @@ pip install -r requirements.txt
 
 ## Запуск
 
-```
-./start.py
+```bash
+python3 start.py console
 ```

@@ -47,7 +47,7 @@ def crc8(buf, len):
 class Serial_Listener:
 
     def __init__(self):
-        self.ser = aioserial.AioSerial('/dev/ttyAMA1', 115200)
+        self.ser = aioserial.AioSerial('/dev/ttyAMA10', 115200)
         self.ser.flush()
         pass
 

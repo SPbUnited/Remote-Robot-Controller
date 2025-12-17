@@ -17,3 +17,24 @@ jsonschema==4.17.3
 # sqlalchemy
 inputs==0.5
 circuitpython-nrf24l01==2.1.0
+aioserial
+
+# uvloop
+# pyee
+# pyyaml
+# pyserial
+# sanic
+# sanic-cors
+# # board
+# inputs
+# circuitpython-nrf24l01
+# adafruit-blinka
+# thespian
+# # lgpio
+
+# sanic-ext
+# aioserial
+# sanic
+# uvloop
+# pyee
+# sanic-cors
