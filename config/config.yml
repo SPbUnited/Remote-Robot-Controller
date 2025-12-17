@@ -11,5 +11,5 @@ web:
     KEEP_ALIVE: True
     KEEP_ALIVE_TIMEOUT: 600
 
-db:
-  config: '/home/eevee/sanic/data/bm.db'
+# db:
+#   config: '/home/eevee/sanic/data/bm.db'
