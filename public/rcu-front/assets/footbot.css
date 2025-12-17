@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    background-color: rgb(1, 50, 1);
+    height: 100%;
+}
+
+body, html {
+    height: 100%;
+}
+
+#menubar {
+    background: rgb(13, 36, 0);
+    background: linear-gradient(90deg, rgb(0, 36, 0) 0%, rgb(13, 121, 9) 35%, rgb(0, 255, 21) 100%);
+    height: 3%;
+    margin: 0;
+    padding: 10px 0 10px 10px;
+    border: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#menu_icon {
+    flex: 1;
+    max-width: 120px;
+    justify-self: flex-start;
+}
+
+#menubar h1 {
+    flex: 2fr;
+    color: azure;
+    font-size: 30px;
+    margin: 10px;
+    text-wrap: revert;
+    /*flex-wrap: wrap;*/
+}
+
+#menubar label {
+    flex: 1fr;
+    color: azure;
+    font-size: 20px;
+    margin: 10px;
+}
+
+.menu_btn {
+    flex: 1 100px;
+    max-width: 150px;
+    /*background-color: #00008b;*/
+    background-color: rgba(2, 17, 7, 0.4);
+    border: 4px rgba(110, 224, 110, 0.6) ridge;
+    border-radius: 5%;
+    font-size: 120%;
+    color: azure;
+    /*opacity: .5;*/
+    margin: 5px 5px;
+    height: 30px;
+
+}
+
+.menu_btn:disabled {
+    background-color: rgba(73, 85, 59, 0.4);
+    opacity: 70%;
+}
+
+
+#content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    /*align-items: center;*/
+}
+
+/*.speedX {*/
+/*    visibility: collapse;*/
+/*}*/
+
+/*.speedY {*/
+/*    visibility: collapse;*/
+/*}*/
+
+/*.speedW {*/
+/*    visibility: collapse;*/
+/*}*/
+
+
+.submenu {
+    color: azure;
+    flex: 1fr;
+    max-width: 50%;
+    min-width: 172px;
+    background-color: #32a13b;
+    font-size: 200%;
+
+    max-height: 400px;
+    min-height: 180px;
+
+    border: 4px rgba(114, 224, 110, 0.6) ridge;
+    border-radius: 5%;
+    padding: 8px;
+
+    /*background: rgb(2, 0, 36);*/
+    /*background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);*/
+
+    display: flex;
+    flex-direction: column;
+    /*align-items: stretch;*/
+    justify-content: space-between;
+
+}
+
+.submenu label {
+    flex: 1fr;
+    display: flex;
+    font-size: 19px;
+    /*justify-content: flex-end;*/
+}
+
+.submenu p {
+    flex: 1fr;
+    display: flex;
+    /*justify-content: flex-end;*/
+}
+
+.submenu label * {
+    flex: 1fr;
+
+}
+
+.submenu h2 {
+    flex: 1fr;
+    /*align-self: center;*/
+    margin: 0;
+    font-size: 20px;
+}
