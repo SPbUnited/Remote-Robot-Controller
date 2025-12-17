@@ -138,12 +138,6 @@ cd ~
 git clone --branch <version-name> git@github.com:SPbUnited/Remote-Robot-Controller.git rcu
 cd rcu
 
-# sudp apt update
-# sudo apt install swig python3-dev python3-setuptools build-essential
-# sudo apt install python3-lgpio
-
-python3 -m venv venv
-source venv/bin/activate
 pip install -r requirements.txt
 ```
 
