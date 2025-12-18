@@ -1,6 +1,6 @@
 
 // import "./input.js";
-import {validateSpeed, mapTrigger, mapStick, sleep} from "./input.js";
+import { validateSpeed, mapTrigger, mapStick, sleep } from "./input.js";
 import {
     voltageUp,
     voltageDown,
@@ -34,6 +34,9 @@ document.getElementById('stop_all').onclick = stopAll;
 async function wsMsg(event) {
     // console.log(`[message] Data: ${event.data}`);
     // event.
+
+    console.log(event);
+
     let content = document.getElementById("content");
     let menus = content.getElementsByClassName("submenu");
     let msg = JSON.parse(event.data);
@@ -70,16 +73,18 @@ async function wsMsg(event) {
         if (msg["robot_" + i]["ball_checker"])
             menus[i].getElementsByClassName("ballChecker")[0].textContent = "BallChecker: +";
         else
-            menus[i].getElementsByClassName("ballChecker")[0].textContent = "BallChecker: -";    
-        
+            menus[i].getElementsByClassName("ballChecker")[0].textContent = "BallChecker: -";
+
         menus[i].style.borderColor = "rgba(255, 0, 0, 0.6)";
     }
 
     currentBot = msg["selected_bot"];
     speedRange = msg["speed_range"];
+    boxIp = msg["box_ip"];
 
     document.getElementById("selected_bot").textContent = "Selected Robot: " + currentBot;
     document.getElementById("speed_range").textContent = "Max Speed: " + Math.trunc((speedRange + 1) / 3 * 100) + "%";
+    document.getElementById("box_ip").textContent = "Box IP: " + boxIp;
 
 
     menus[currentBot].style.borderColor = "#ff0000";
@@ -119,8 +124,8 @@ async function inputLoop() {
 
 
 
-        if (btnLegal(gp, 2))
-            await toggleDribbler();
+            if (btnLegal(gp, 2))
+                await toggleDribbler();
 
             if (btnLegal(gp, 3))
                 await switchAutokick();
@@ -135,8 +140,8 @@ async function inputLoop() {
             if (btnLegal(gp, 8))
                 await switchBot();
 
-        if (btnLegal(gp, 9))
-            await toggleCharge();
+            if (btnLegal(gp, 9))
+                await toggleCharge();
 
             if (btnLegal(gp, 12))
                 await drSpeedUp();
@@ -150,7 +155,7 @@ async function inputLoop() {
             if (btnLegal(gp, 15))
                 await voltageUp();
 
-        // if (btnLegal(gp, 16)) {}
+            // if (btnLegal(gp, 16)) {}
 
 
             if (socket)
@@ -198,6 +203,7 @@ let beepFlag = false;
 
 let currentBot = 0
 let speedRange = 0
+let boxIp = "0.0.0.0"
 
 let botNumb = 0;
 let dribblerEn = false;

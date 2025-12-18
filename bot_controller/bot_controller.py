@@ -1,12 +1,13 @@
 import asyncio
 import datetime
+import subprocess
+
 
 from .robot import Robot
 from .transmitter import Transmitter
 from .udp_listner import UDPListner
 # from .udp_transmitter import UDPTransmitter
 from .serial_listener import Serial_Listener
-
 
 class BotController:
     ROBOT_COUNT = 8
@@ -39,6 +40,9 @@ class BotController:
 
         self.old_msg = {"speed_x": None, "speed_y": None, "speed_w": None,
                         "kick_up": None, "kick_down": None, "beep": None}
+
+        ip4_output = subprocess.run(['nmcli', '--fields', 'IP4.ADDRESS', 'device', 'show', 'eth0'], stdout=subprocess.PIPE).stdout.decode('utf-8')
+        self.box_ip = ip4_output.split()[1][:-3]
 
         pass
 
@@ -97,6 +101,7 @@ class BotController:
     def get_state(self):
         msg = \
             {
+                "box_ip": self.box_ip,
                 "selected_bot": self.selected_bot_index,
                 "speed_range": self.speed_range
             }

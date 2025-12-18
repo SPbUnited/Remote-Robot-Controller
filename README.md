@@ -172,3 +172,11 @@ python3 start.py console
 ```bash
 ./chrome.sh # При первом запуске спросит пароль для new keyring. Можно оставить пустым
 ```
+
+## MISC
+
+### Очистка кеша Chromium
+
+```bash
+rm -r ~/.cache/chromium/
+```
