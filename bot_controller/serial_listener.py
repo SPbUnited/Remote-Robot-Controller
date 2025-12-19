@@ -70,7 +70,7 @@ class Reciever:
 #            i+=1
             if payload_length:
                 # Read payload as bytes
-                payload = bytes(self.nrf.read(payload_length))
+                payload = bytes(self.nrf.read(32))
                 print(payload)
                 # Try to decode as UTF-8 string command
                 try:
@@ -81,6 +81,7 @@ class Reciever:
                 print(f"RX command: {cmd!r}, len {len(cmd)}")
                 # print()
                 return len(cmd)
+        return 0
 
 
     def send(self, buff, addr=None):
