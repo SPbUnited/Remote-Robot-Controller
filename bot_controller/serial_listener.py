@@ -70,7 +70,7 @@ class Reciever:
 #            i+=1
             if payload_length:
                 # Read payload as bytes
-                payload = bytes(self.nrf.read(32))
+                payload = bytes(self.nrf.read(payload_length))
                 print(payload)
                 # Try to decode as UTF-8 string command
                 try:
