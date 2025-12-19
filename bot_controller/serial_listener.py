@@ -78,18 +78,9 @@ class Reciever:
                 except UnicodeDecodeError:
                     # Fall back to hex representation for binary data
                     cmd = payload.hex()
-
-                print(f"RX command: {cmd!r}")
-
-                # Example command processing
-                if cmd == "PING":
-                    print("  -> PING received")
-                elif cmd.startswith("LED "):
-                    led_cmd = cmd[4:].strip()
-                    print(f"  -> LED command: {led_cmd}")
-                elif cmd.startswith("MOVE "):
-                    move_cmd = cmd[5:].strip()
-                    print(f"  -> MOVE command: {move_cmd}")
+                print(f"RX command: {cmd!r}, len {len(cmd)}")
+                # print()
+                return len(cmd)
 
 
     def send(self, buff, addr=None):

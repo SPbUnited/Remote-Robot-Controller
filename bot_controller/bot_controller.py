@@ -158,7 +158,7 @@ class BotController:
         ts = datetime.datetime.now()
         while True:
             try:
-                print('here')
+                # print('here')
                 self.uart.recv()
                 await asyncio.sleep(.002)
             except Exception as e:
