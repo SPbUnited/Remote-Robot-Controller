@@ -6,8 +6,9 @@ import subprocess
 from .robot import Robot
 from .transmitter import Transmitter
 from .udp_listner import UDPListner
+from .serial_listener import Reciever
 # from .udp_transmitter import UDPTransmitter
-from .serial_listener import Serial_Listener
+# from .serial_listener import Serial_Listener
 
 class BotController:
     ROBOT_COUNT = 8
@@ -36,13 +37,13 @@ class BotController:
 
         #self.udpT = UDPTransmitter()
 
-        self.uart = Serial_Listener()
+        self.uart = Reciever()
 
         self.old_msg = {"speed_x": None, "speed_y": None, "speed_w": None,
                         "kick_up": None, "kick_down": None, "beep": None}
 
         ip4_output = subprocess.run(['nmcli', '--fields', 'IP4.ADDRESS', 'device', 'show', 'eth0'], stdout=subprocess.PIPE).stdout.decode('utf-8')
-        self.box_ip = ip4_output.split()[1][:-3]
+        # self.box_ip = ip4_output.split()[1][:-3]
 
         pass
 
@@ -154,13 +155,9 @@ class BotController:
     async def serial_listener(self):
         ts = datetime.datetime.now()
         while True:
-            await asyncio.sleep(.002)
             try:
-                data = await self.uart.listen()
-                if data:
-                    number = data["bot_number"]  # + self.ROBOT_OFFSET
-                    if number in self.bot_by_number:
-                        self.bot_by_number[number].set_from_serial(data)
+                self.uart.recv()
+                await asyncio.sleep(.002)
             except Exception as e:
                 print(f"Exception 4 in {__file__}: {str(e)}")
                 continue

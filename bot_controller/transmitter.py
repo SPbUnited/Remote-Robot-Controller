@@ -2,6 +2,7 @@ import struct
 import time
 
 import board
+import busio
 import digitalio as dio
 from circuitpython_nrf24l01.rf24 import RF24
 
@@ -16,7 +17,8 @@ class Transmitter:
         ce = dio.DigitalInOut(board.D25)
         csn = dio.DigitalInOut(board.D8)
 
-        spi = board.SPI()  # init spi bus object
+        # spi = board.SPI()  # init spi bus object
+        spi = busio.SPI(board.SCLK, board.MOSI, board.MISO)
         # spi.try_lock()
         # spi.configure(baudrate=125)
         # spi.unlock()
