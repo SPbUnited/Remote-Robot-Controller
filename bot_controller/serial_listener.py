@@ -1,90 +1,150 @@
-# import aioserial
+import struct
+import time
 
-# def crc8(buf, len):
-#         crc8Table = [
-#             0x00, 0x31, 0x62, 0x53, 0xC4, 0xF5, 0xA6, 0x97,
-#             0xB9, 0x88, 0xDB, 0xEA, 0x7D, 0x4C, 0x1F, 0x2E,
-#             0x43, 0x72, 0x21, 0x10, 0x87, 0xB6, 0xE5, 0xD4,
-#             0xFA, 0xCB, 0x98, 0xA9, 0x3E, 0x0F, 0x5C, 0x6D,
-#             0x86, 0xB7, 0xE4, 0xD5, 0x42, 0x73, 0x20, 0x11,
-#             0x3F, 0x0E, 0x5D, 0x6C, 0xFB, 0xCA, 0x99, 0xA8,
-#             0xC5, 0xF4, 0xA7, 0x96, 0x01, 0x30, 0x63, 0x52,
-#             0x7C, 0x4D, 0x1E, 0x2F, 0xB8, 0x89, 0xDA, 0xEB,
-#             0x3D, 0x0C, 0x5F, 0x6E, 0xF9, 0xC8, 0x9B, 0xAA,
-#             0x84, 0xB5, 0xE6, 0xD7, 0x40, 0x71, 0x22, 0x13,
-#             0x7E, 0x4F, 0x1C, 0x2D, 0xBA, 0x8B, 0xD8, 0xE9,
-#             0xC7, 0xF6, 0xA5, 0x94, 0x03, 0x32, 0x61, 0x50,
-#             0xBB, 0x8A, 0xD9, 0xE8, 0x7F, 0x4E, 0x1D, 0x2C,
-#             0x02, 0x33, 0x60, 0x51, 0xC6, 0xF7, 0xA4, 0x95,
-#             0xF8, 0xC9, 0x9A, 0xAB, 0x3C, 0x0D, 0x5E, 0x6F,
-#             0x41, 0x70, 0x23, 0x12, 0x85, 0xB4, 0xE7, 0xD6,
-#             0x7A, 0x4B, 0x18, 0x29, 0xBE, 0x8F, 0xDC, 0xED,
-#             0xC3, 0xF2, 0xA1, 0x90, 0x07, 0x36, 0x65, 0x54,
-#             0x39, 0x08, 0x5B, 0x6A, 0xFD, 0xCC, 0x9F, 0xAE,
-#             0x80, 0xB1, 0xE2, 0xD3, 0x44, 0x75, 0x26, 0x17,
-#             0xFC, 0xCD, 0x9E, 0xAF, 0x38, 0x09, 0x5A, 0x6B,
-#             0x45, 0x74, 0x27, 0x16, 0x81, 0xB0, 0xE3, 0xD2,
-#             0xBF, 0x8E, 0xDD, 0xEC, 0x7B, 0x4A, 0x19, 0x28,
-#             0x06, 0x37, 0x64, 0x55, 0xC2, 0xF3, 0xA0, 0x91,
-#             0x47, 0x76, 0x25, 0x14, 0x83, 0xB2, 0xE1, 0xD0,
-#             0xFE, 0xCF, 0x9C, 0xAD, 0x3A, 0x0B, 0x58, 0x69,
-#             0x04, 0x35, 0x66, 0x57, 0xC0, 0xF1, 0xA2, 0x93,
-#             0xBD, 0x8C, 0xDF, 0xEE, 0x79, 0x48, 0x1B, 0x2A,
-#             0xC1, 0xF0, 0xA3, 0x92, 0x05, 0x34, 0x67, 0x56,
-#             0x78, 0x49, 0x1A, 0x2B, 0xBC, 0x8D, 0xDE, 0xEF,
-#             0x82, 0xB3, 0xE0, 0xD1, 0x46, 0x77, 0x24, 0x15,
-#             0x3B, 0x0A, 0x59, 0x68, 0xFF, 0xCE, 0x9D, 0xAC
-#         ]
-        
-#         crc = 0xFF
-#         index = 0
-#         while len:
-#             crc = crc8Table[crc ^ buf[index]]
-#             index += 1
-#             len -= 1
-#         return crc
-
-# class Serial_Listener:
-
-#     def __init__(self):
-#         self.ser = aioserial.AioSerial('/dev/ttyAMA10', 115200)
-#         self.ser.flush()
-#         pass
+import board
+import busio
+import digitalio as dio
+from circuitpython_nrf24l01.rf24 import RF24
 
 
-#     async def listen(self):
-#         recv = []
-#         try:
-#             while(True):
-#                 tmpB = int.from_bytes(await self.ser.read_async(), "big")
-#                 if tmpB == 38:
-#                     break
-#                 recv.append(tmpB)
-#         except:
-#             return None
-        
-#         if recv[0] != 62 and recv[4] == crc8(recv, 4):
-#             return None
+class Reciever:
 
-#         data = \
-#             {
-#                 # "bot_number": int.from_bytes(raw[1], byteorder="big", signed=False),
-#                 # "speed_x": int.from_bytes(raw[2], byteorder="big", signed=True),
-#                 # "speed_y": int.from_bytes(raw[3], byteorder="big", signed=True),
-#                 # "speed_w": int.from_bytes(raw[4], byteorder="big", signed=True),
-#                 # "dribbler_speed": int.from_bytes(raw[5], byteorder="big", signed=False),
-#                 # "kicker_voltage": int.from_bytes(raw[6], byteorder="big", signed=False),
-#                 # "kick_up": bool(int.from_bytes(raw[7], byteorder="big", signed=False)),
-#                 # "kick_down": bool(int.from_bytes(raw[8], byteorder="big", signed=False)),
-#                 # "beep": bool(int.from_bytes(raw[9], byteorder="big", signed=False)),
-#                 # "dribbler_en": bool(int.from_bytes(raw[10], byteorder="big", signed=False)),
-#                 # "charge_en": bool(int.from_bytes(raw[11], byteorder="big", signed=False)),
-#                 # "autokick": int.from_bytes(raw[12], byteorder="big", signed=False)
-#                 "bot_number": recv[1],
-#                 "robot_voltage": recv[2],
-#                 "ball_checker": recv[3]
+    def __init__(self):
 
-#             }
+        # D10 MOSI
+        # D9 MSIO
+        # D8 C0EN
+        ce = dio.DigitalInOut(board.D16)
+        csn = dio.DigitalInOut(board.D18)
 
-#         return data
+        # spi = board.SPI()  # init spi bus object
+        spi = busio.SPI(board.SCLK_1, board.MOSI_1, board.MISO_1)
+        # spi.try_lock()
+        # spi.configure(baudrate=125)
+        # spi.unlock()
 
+        self.nrf = RF24(spi, csn, ce)  # , payload_length=6, auto_ack=False, dynamic_payloads=False)
+
+        self.nrf.data_rate = 2
+        self.nrf.crc = 2
+        self.nrf.address_length = 3
+
+        # addr
+        # uint8_t ADDR0[] = {0xAB, 0xAD, 0xAF}
+        self.address = bytearray([0xAB, 0xAD, 0xAF])
+        # self.address = bytearray([0xAF, 0xAD, 0xAB])
+        # self.nrf.dynamic_payloads = False
+        # self.nrf.payload_length = 7
+
+        self.nrf.pa_level = 0
+        self.nrf.auto_ack = False
+
+        self.nrf.channel = 76
+        self.nrf.listen = True
+        self.nrf.power = True
+
+        self.nrf.open_rx_pipe(1, self.address)
+        self.nrf.print_details(True)
+        # uint8_t ADDR0[] = {0xAB, 0xAD, 0xAF}; // the address for RX pipe
+        # m_nrf24.setRfChannel(76); // set RF channel to 2400 + channel[MHz]
+        # m_nrf24.setDataRate(Nrf24DataRate::NRF24_DR_2Mbps); // 2 Mbit / s data rate
+        # m_nrf24.setCrcScheme(Nrf24Crc::NRF24_CRC_2_BYTE); // 2 - byte  CRC scheme
+        # m_nrf24.setAddrWidth(Nrf24SetupAddressWidth::NRF24_ADDRESS_WIDTH_3_BYTE); // address width is 5 bytes
+        # // m_nrf24.setAddr(Nrf24RxpipeAddresses::NRF24_PIPETX, ADDR); // program TX address
+        # m_nrf24.setAddr(Nrf24RxpipeAddresses::NRF24_PIPE0, ADDR0); // program pipe address
+        # // m_nrf24.setAddr(Nrf24RxpipeAddresses::NRF24_PIPETX, ADDR0); // program pipe address
+        # m_nrf24.setRxPipe(Nrf24RxpipeAddresses::NRF24_PIPE0, NRF24_AA_OFF, m_incomePacketLen); // enable RX pipe  # 1 with Auto-ACK: enabled, payload length: 10 bytes
+        # // m_nrf24.setTxPower(Nrf24RfPower::NRF24_TXPWR_18dBm); // configure TX power for Auto - ACK, good choice - same power level as on transmitter
+        # m_nrf24.setOperationMode(Nrf24OperationMode::NRF24_Operation_PRX); // switch transceiver to the RX mode
+        # // m_nrf24.enableAa(Nrf24RxpipeAddresses::NRF24_PIPE0);
+        # m_nrf24.setPowerMode(Nrf24Power::NRF24_PWR_UP); // wake - up transceiver( in case if it sleeping)
+
+        pass
+    
+    def recv(self):
+        if self.nrf.available():
+            payload_length = self.nrf.any()  # Returns 0 if no payload
+            print(i)
+            i+=1
+            if payload_length:
+                # Read payload as bytes
+                payload = bytes(self.nrf.read(payload_length))
+                print(payload)
+                # Try to decode as UTF-8 string command
+                try:
+                    cmd = payload.decode("ascii").strip()
+                except UnicodeDecodeError:
+                    # Fall back to hex representation for binary data
+                    cmd = payload.hex()
+
+                print(f"RX command: {cmd!r}")
+
+                # Example command processing
+                if cmd == "PING":
+                    print("  -> PING received")
+                elif cmd.startswith("LED "):
+                    led_cmd = cmd[4:].strip()
+                    print(f"  -> LED command: {led_cmd}")
+                elif cmd.startswith("MOVE "):
+                    move_cmd = cmd[5:].strip()
+                    print(f"  -> MOVE command: {move_cmd}")
+
+
+    def send(self, buff, addr=None):
+        # self.nrf.open_tx_pipe(addr)
+
+        if addr is not None:
+            old_addr = self.address
+            self.address = addr
+            result = self.nrf.send(buff)
+            self.address = old_addr
+        else:
+            result = self.nrf.send(buff)
+
+        return result
+
+    def master_test(self, count=5):  # count = 5 will only transmit 5 packets
+        """Transmits an incrementing integer every second"""
+        # set address of RX node into a TX pipe
+        self.nrf.open_tx_pipe(self.address)
+        # ensures the nRF24L01 is in TX mode
+        self.nrf.listen = False
+
+        while count:
+            # use struct.pack to packetize your data
+            # into a usable payload
+            buffer = struct.pack('<i', count)
+            # 'i' means a single 4 byte int value.
+            # '<' means little endian byte order. this may be optional
+            print("Sending: {} as struct: {}".format(count, buffer))
+            now = time.monotonic() * 1000  # start timer
+            result = self.nrf.send(buffer)
+            if not result:
+                print('send() failed or timed out')
+            else:
+                print('send() successful')
+            # print timer results despite transmission success
+            print('Transmission took',
+                  time.monotonic() * 1000 - now, 'ms')
+            time.sleep(1)
+            count -= 1
+
+# tr = Transmitter()
+#
+# buff = bytearray(b'123456789')
+# tr.send(buff)
+
+#
+# while True:
+#     tr.send(bytearray(b'1Node'), buff)
+# # tr.master_test()
+# buff = bytearray(6 * 4)
+#
+# op_addr = 0x10.to_bytes(1, 'big')[0] + int(255).to_bytes(1, 'big')[0]
+#
+# smth = 1
+#
+# buff[0] = op_addr
+# buff[0] = op_addr
+# buff[6] = smth
+# buff[0] = op_addr
