@@ -21,7 +21,7 @@ class BotController:
         self.selected_bot_index = 0
         self.selected_bot = None
         self.speed_range = 0
-
+        self.app = app
         self.bot_by_number = {}
 
         i = 0
@@ -161,7 +161,8 @@ class BotController:
                 # print('here')
                 recv_value = self.uart.recv()
                 if recv_value is not None:
-                    self.udpT.send(recv_value[1:])
+                    # self.udpT.send(recv_value[1:])
+                    self.app.web.send_all_webclient(recv_value[1:])
                     print(recv_value[1:])
                 await asyncio.sleep(.002)
             except Exception as e:
