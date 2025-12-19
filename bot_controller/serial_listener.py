@@ -15,7 +15,7 @@ class Reciever:
         # D9 MSIO
         # D8 C0EN
         ce = dio.DigitalInOut(board.D16)
-        csn = dio.DigitalInOut(board.D18)
+        csn = dio.DigitalInOut(board.D26)
 
         # spi = board.SPI()  # init spi bus object
         spi = busio.SPI(board.SCLK_1, board.MOSI_1, board.MISO_1)
@@ -62,10 +62,12 @@ class Reciever:
         pass
     
     def recv(self):
+        print('Trying')
         if self.nrf.available():
+            print('Availabe')
             payload_length = self.nrf.any()  # Returns 0 if no payload
-            print(i)
-            i+=1
+ #           print(i)
+#            i+=1
             if payload_length:
                 # Read payload as bytes
                 payload = bytes(self.nrf.read(payload_length))
