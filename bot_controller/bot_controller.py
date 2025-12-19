@@ -35,7 +35,7 @@ class BotController:
 
         self.udp = UDPListner()
 
-        #self.udpT = UDPTransmitter()
+        self.udpT = UDPTransmitter()
 
         self.uart = Reciever()
 
@@ -159,7 +159,10 @@ class BotController:
         while True:
             try:
                 # print('here')
-                self.uart.recv()
+                recv_value = self.uart.recv()
+                if recv_value is not None:
+                    self.udpT.send(recv_value[1:])
+                    print(recv_value[1:])
                 await asyncio.sleep(.002)
             except Exception as e:
                 print(f"Exception 4 in {__file__}: {str(e)}")

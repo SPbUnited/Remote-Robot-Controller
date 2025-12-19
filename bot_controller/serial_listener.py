@@ -80,8 +80,8 @@ class Reciever:
                     cmd = payload.hex()
                 print(f"RX command: {cmd!r}, len {len(cmd)}")
                 # print()
-                return len(cmd)
-        return 0
+                return cmd
+        return None
 
 
     def send(self, buff, addr=None):
