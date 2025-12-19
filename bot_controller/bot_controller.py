@@ -14,7 +14,7 @@ class BotController:
     ROBOT_COUNT = 8
     MAX_SPEED_VAL = Robot.MAX_SPEED_VAL
     SPEED_RANGE_COUNT = 3
-    ROBOT_OFFSET = 248
+    ROBOT_OFFSET = 240 # 248
 
     def __init__(self, app):
         self.robots = []
@@ -114,7 +114,7 @@ class BotController:
     async def bot_sender(self):
         ts = datetime.datetime.now()
         while True:
-            await asyncio.sleep(.002)
+#            await asyncio.sleep(.002)
             try:
                 # print('au')
                 for bot in self.robots:
@@ -128,6 +128,7 @@ class BotController:
                     # print("After:")
                     # print((datetime.datetime.now() - ts).microseconds)
                     # ts = datetime.datetime.now()
+                    await asyncio.sleep(.002)
             except Exception as e:
                 print(f"Exception 2 in {__file__}: {str(e)}")
                 continue
@@ -136,17 +137,18 @@ class BotController:
     async def udp_listener(self):
         ts = datetime.datetime.now()
         while True:
-            await asyncio.sleep(.0002)
+#            await asyncio.sleep(.0002)
             try:
                 data = await self.udp.listen()
-                if data is None:
-                    continue
-                if "debug_override" in data:
-                    self.tx.send(data["payload"])
-                elif data is not None:
-                    number = data["bot_number"]  # + self.ROBOT_OFFSET
-                    if number in self.bot_by_number:
-                        self.bot_by_number[number].set_from_api(data)
+                if data is not None:
+#                    continue
+                    if "debug_override" in data:
+                        self.tx.send(data["payload"])
+                    else:
+                        number = data["bot_number"]  # + self.ROBOT_OFFSET
+                        if number in self.bot_by_number:
+                            self.bot_by_number[number].set_from_api(data)
+                await asyncio.sleep(.0002)
             except Exception as e:
                 print(f"Exception 3 in {__file__}: {str(e)}")
                 continue
