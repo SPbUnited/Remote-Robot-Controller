@@ -83,7 +83,7 @@ async function wsMsg(event) {
     boxIp = msg["box_ip"];
 
     document.getElementById("selected_bot").textContent = "Selected Robot: " + currentBot;
-    document.getElementById("speed_range").textContent = "Max Speed: " + Math.trunc((speedRange + 1) / 3 * 100) + "%";
+    document.getElementById("speed_range").textContent = "Max Speed: " + Math.trunc((speedRange + 1) / 5 * 100) + "%";
     document.getElementById("box_ip").textContent = "Box IP: " + boxIp;
 
 

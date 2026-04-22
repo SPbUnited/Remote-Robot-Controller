@@ -39,7 +39,7 @@ class Transmitter:
         self.nrf.pa_level = 0
         self.nrf.auto_ack = False
 
-        self.nrf.channel = 83
+        self.nrf.channel = 52
         self.nrf.listen = False
         self.nrf.power = True
 

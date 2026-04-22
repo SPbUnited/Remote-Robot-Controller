@@ -62,9 +62,9 @@ class Reciever:
         pass
     
     def recv(self):
-        print('Trying')
+ #       print('Trying')
         if self.nrf.available():
-            print('Availabe')
+#            print('Availabe')
             payload_length = self.nrf.any()  # Returns 0 if no payload
  #           print(i)
 #            i+=1

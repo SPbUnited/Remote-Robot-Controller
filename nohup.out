@@ -1,0 +1,2 @@
+[3403:3436:1219/012712.466673:ERROR:google_apis/gcm/engine/registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
+[3453:3453:1219/012714.319897:ERROR:ui/gl/gl_surface_presentation_helper.cc:260] GetVSyncParametersIfAvailable() failed for 1 times!

@@ -7,13 +7,13 @@ from .robot import Robot
 from .transmitter import Transmitter
 from .udp_listner import UDPListner
 from .serial_listener import Reciever
-from .udp_transmitter import UDPTransmitter
+#from .udp_transmitter import UDPTransmitter
 # from .serial_listener import Serial_Listener
 
 class BotController:
     ROBOT_COUNT = 8
     MAX_SPEED_VAL = Robot.MAX_SPEED_VAL
-    SPEED_RANGE_COUNT = 3
+    SPEED_RANGE_COUNT = 5
     ROBOT_OFFSET = 240 # 248
 
     def __init__(self, app):
@@ -35,7 +35,7 @@ class BotController:
 
         self.udp = UDPListner()
 
-        # self.udpT = UDPTransmitter()
+ #       self.udpT = UDPTransmitter()
 
         self.uart = Reciever()
 
@@ -43,7 +43,7 @@ class BotController:
                         "kick_up": None, "kick_down": None, "beep": None}
 
         ip4_output = subprocess.run(['nmcli', '--fields', 'IP4.ADDRESS', 'device', 'show', 'eth0'], stdout=subprocess.PIPE).stdout.decode('utf-8')
-        # self.box_ip = ip4_output.split()[1][:-3]
+        self.box_ip = ip4_output.split()[1][:-3]
 
         pass
 
@@ -70,10 +70,17 @@ class BotController:
             speed_multiplier = 1
         if speed_x is not None:
             speed_x = speed_x * speed_multiplier
+            if speed_x < 0:
+                speed_x = -128-speed_x
         if speed_y is not None:
             speed_y = speed_y * speed_multiplier
+            if speed_y < 0:
+                speed_y = -128-speed_y
         if speed_w is not None:
             speed_w = -speed_w * speed_multiplier
+            if speed_w < 0:
+                speed_w = -128-speed_w
+                
         self.selected_bot.set_speed(speed_x, speed_y, speed_w)
         pass
 
@@ -116,7 +123,7 @@ class BotController:
         while True:
 #            await asyncio.sleep(.002)
             try:
-                # print('au')
+#                print('Sending')
                 for bot in self.robots:
                     # print("Before:")
                     # print((datetime.datetime.now() - ts).microseconds)
@@ -161,10 +168,10 @@ class BotController:
                 # print('here')
                 recv_value = self.uart.recv()
                 if recv_value is not None:
-                    # self.udpT.send(recv_value[1:])
-                    self.app.web.send_all_webclient(recv_value[1:])
-                    print(recv_value[1:])
-                await asyncio.sleep(.002)
+                  #  self.udpT.send(recv_value[1:])
+                    await self.app.web.send_all_webclient(recv_value[1:])
+                    print(recv_value[1:], 'bas')
+                await asyncio.sleep(1)
             except Exception as e:
                 print(f"Exception 4 in {__file__}: {str(e)}")
                 continue

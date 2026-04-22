@@ -134,12 +134,16 @@ def load_routes(web, app):
 
     @sanic.websocket('/api/webclient')
     async def api_webclient(request, ws):
+        print('1')
         app.event_emitter.emit('client:connect')
+        print('2')
         web.add_web_client(ws)
+        print('gotclinetasdsadsad')
         while True:
             try:
                 message = await ws.recv()
                 # print('Got:' + message)
+                print('gotclinet')
                 message = jsons.loads(message)
                 if message["command"] == "speed_n_triggers":
                     web.app.bot_controller.set_speed_n_triggers(message)
