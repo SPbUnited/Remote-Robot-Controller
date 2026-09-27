@@ -43,8 +43,9 @@ class BotController:
                         "kick_up": None, "kick_down": None, "beep": None}
 
         ip4_output = subprocess.run(['nmcli', '--fields', 'IP4.ADDRESS', 'device', 'show', 'eth0'], stdout=subprocess.PIPE).stdout.decode('utf-8')
-        self.box_ip = ip4_output.split()[1][:-3]
-
+#        try:
+        self.box_ip = 'aboba'#ip4_output.split()[1][:-3]
+#        except: pass
         pass
 
     def set_speed_n_triggers(self, msg):

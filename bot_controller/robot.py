@@ -21,7 +21,8 @@ class Robot:
         self.charge_en = False
 
         self.auto_kick_en = False
-        self.auto_kick_upper = False
+        self.auto_kick_straight = False
+        self.auto_kick_chip = False        
 
         # Instant actions flags
         self._kick_up_flag = False
@@ -32,17 +33,21 @@ class Robot:
         self.ball_checker = False
         pass
 
+  
     def switch_autokick(self):
-        if not self.auto_kick_en:
-            self.auto_kick_en = True
-            self.auto_kick_upper = False
+        if not self.auto_kick_straight and not self.auto_kick_chip:
+            #self.auto_kick_en = True
+            self.auto_kick_straight = True
         else:
-            if not self.auto_kick_upper:
-                self.auto_kick_en = True
-                self.auto_kick_upper = True
+            if self.auto_kick_straight and not self.auto_kick_chip:
+             #   self.auto_kick_ = True
+                self.auto_kick_chip = True
+            elif self.auto_kick_straight and self.auto_kick_chip:
+                self.auto_kick_straight = False
+#                self.auto_kick_en = False
+#                self.auto_kick_straight = False
             else:
-                self.auto_kick_en = False
-                self.auto_kick_upper = False
+                self.auto_kick_chip = False
 
         pass
 
@@ -179,10 +184,10 @@ class Robot:
         buff[flags_pos] = charge_en_mask * self.charge_en
         buff[flags_pos] += dribbler_en_mask * self.dribbler_en
         buff[flags_pos] += beep_mask * self._beep_flag
-        buff[flags_pos] += force_kick_up_mask * self._kick_up_flag  # * (not self.auto_kick_upper)
-        buff[flags_pos] += force_kick_down_mask * self._kick_down_flag  # * self.auto_kick_upper
-        buff[flags_pos] += kick_up_mask * self.auto_kick_en * self.auto_kick_upper
-        buff[flags_pos] += kick_down_mask * self.auto_kick_en * (not self.auto_kick_upper)
+        buff[flags_pos] += force_kick_up_mask * self._kick_up_flag  # * (not self.auto_kick_straight)
+        buff[flags_pos] += force_kick_down_mask * self._kick_down_flag  # * self.auto_kick_straight
+        buff[flags_pos] += kick_up_mask * self.auto_kick_straight
+        buff[flags_pos] += kick_down_mask * self.auto_kick_chip
         # buff[flags_pos] += ball_mask * self.ball_checker
 
         return buff
@@ -202,8 +207,8 @@ class Robot:
                 "kicker_voltage": self.kicker_voltage,
                 "charge_en": self.charge_en,
 
-                "auto_kick_en": self.auto_kick_en,
-                "auto_kick_upper": self.auto_kick_upper,
+                "auto_kick_en": self.auto_kick_chip,
+                "auto_kick_upper": self.auto_kick_straight,
 
                 "robot_voltage": self.robot_voltage,
                 "ball_checker": self.ball_checker
@@ -227,14 +232,21 @@ class Robot:
         self.charge_en = data["charge_en"]
 
         if data["autokick"] == 0:
-            self.auto_kick_en = False
-            self.auto_kick_upper = False
+            # self.auto_kick_en = False
+            self.auto_kick_straight = False
+            self.auto_kick_chip = False
         if data["autokick"] == 1:
-            self.auto_kick_en = True
-            self.auto_kick_upper = False
+            # self.auto_kick_en = True
+            self.auto_kick_straight = True
+            self.auto_kick_chip = False
         if data["autokick"] == 2:
-            self.auto_kick_en = True
-            self.auto_kick_upper = True
+            # self.auto_kick_en = False
+            self.auto_kick_straight = False
+            self.auto_kick_chip = True
+        if data["autokick"] == 3:
+            # self.auto_kick_en = True
+            self.auto_kick_straight = True
+            self.auto_kick_chip = True
         pass
     
     def set_from_serial(self, data):

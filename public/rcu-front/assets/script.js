@@ -24,6 +24,7 @@ let wsApi = "ws://" + origin + ":8001/api/webclient";
 
 window.addEventListener("gamepadconnected", function (e) {
     let gp = navigator.getGamepads()[e.gamepad.index];
+    console.log(gp);
 });
 
 let socket = new WebSocket(wsApi);
@@ -34,9 +35,8 @@ document.getElementById('stop_all').onclick = stopAll;
 async function wsMsg(event) {
     // console.log(`[message] Data: ${event.data}`);
     // event.
-
-    console.log(event);
-
+  //  console.log(gp);
+//
     let content = document.getElementById("content");
     let menus = content.getElementsByClassName("submenu");
     let msg = JSON.parse(event.data);
@@ -62,11 +62,13 @@ async function wsMsg(event) {
             menus[i].getElementsByClassName("drEn")[0].textContent = "Dribbler: Enabled";
         else
             menus[i].getElementsByClassName("drEn")[0].textContent = "Dribbler: Disabled";
-        if (msg["robot_" + i]["auto_kick_en"])
-            if (msg["robot_" + i]["auto_kick_upper"])
-                menus[i].getElementsByClassName("autokick")[0].textContent = "Autokick: Upper";
+        if (msg["robot_" + i]["auto_kick_en"] || msg["robot_" + i]["auto_kick_upper"])
+            if (msg["robot_" + i]["auto_kick_upper"] && !msg["robot_" + i]["auto_kick_en"])
+                menus[i].getElementsByClassName("autokick")[0].textContent = "Autokick: Straight";
+            else if (!msg["robot_" + i]["auto_kick_upper"] && msg["robot_" + i]["auto_kick_en"])
+                menus[i].getElementsByClassName("autokick")[0].textContent = "Autokick: Chip";
             else
-                menus[i].getElementsByClassName("autokick")[0].textContent = "Autokick: Lower";
+                menus[i].getElementsByClassName("autokick")[0].textContent = "Autokick: Momentum";
         else
             menus[i].getElementsByClassName("autokick")[0].textContent = "Autokick: Disabled";
 
@@ -97,9 +99,11 @@ async function wsMsg(event) {
 
 async function inputLoop() {
     while (true) {
+       console.log('asd');
         try {
             let gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
             if (!gamepads) {
+                console.log('asd');
                 continue;
             }
 
@@ -116,9 +120,9 @@ async function inputLoop() {
 
             set_fb(mapStick(-gp.axes[1]));
             set_lr(mapStick(gp.axes[0]));
+            console.log('hello');
 
-
-            kickUpFlag = (buttonPressed(gp.buttons[10]));
+           kickUpFlag = (buttonPressed(gp.buttons[0]));
 
             kickDownFlag = (buttonPressed(gp.buttons[1]));
 
@@ -307,6 +311,7 @@ function stop_rot() {
 // Input stuff
 
 function buttonPressed(b) {
+    console.log(b)
     if (typeof (b) == "object") {
         return b.pressed;
     }
@@ -322,6 +327,7 @@ function pollGamepads() {
     var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
     for (var i = 0; i < gamepads.length; i++) {
         var gp = gamepads[i];
+        console.log(gp);
         if (gp) {
             inputLoop();
             clearInterval(interval);
