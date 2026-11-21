@@ -41,17 +41,15 @@ async function wsMsg(event) {
     let menus = content.getElementsByClassName("submenu");
     let msg = JSON.parse(event.data);
     for (let i = 0; i < 8; i++) {
-        menus[i].getElementsByClassName("header")[0].textContent = "Robot: " + msg["robot_" + i]["address"];
+        menus[i].getElementsByClassName("header")[0].textContent = "Robot: " + i;
         menus[i].getElementsByClassName("speedX")[0].textContent =
             "X: " + msg["robot_" + i]["speed_x"] + " " +
             "Y: " + msg["robot_" + i]["speed_y"] + " " +
             "W: " + msg["robot_" + i]["speed_w"] + " ";
 
-        // menus[i].getElementsByClassName("speedY")[0].textContent = "Y: " + msg["robot_" + i]["speed_y"] + " Pr";
-        // menus[i].getElementsByClassName("speedW")[0].textContent = "W: " + msg["robot_" + i]["speed_w"] + " Pr";
-        menus[i].getElementsByClassName("voltage")[0].textContent = "Voltage: " + msg["robot_" + i]["robot_voltage"] + "pr";
-        menus[i].getElementsByClassName("kickerVoltage")[0].textContent = "KickerVoltage: " + msg["robot_" + i]["kicker_voltage"] + "pr";
-        menus[i].getElementsByClassName("drSpeed")[0].textContent = "Dribbler Speed: " + msg["robot_" + i]["dribbler_speed"] + "pr";
+        menus[i].getElementsByClassName("voltage")[0].textContent = "Voltage: " + msg["robot_" + i]["robot_voltage"] + "/15";
+        menus[i].getElementsByClassName("kickerVoltage")[0].textContent = "KickerVoltage: " + msg["robot_" + i]["kicker_voltage"] + "/15";
+        menus[i].getElementsByClassName("drSpeed")[0].textContent = "Dribbler Speed: " + msg["robot_" + i]["dribbler_speed"] + "/15";
 
         if (msg["robot_" + i]["charge_en"])
             menus[i].getElementsByClassName("chargeEn")[0].textContent = "Charge: Enabled";
