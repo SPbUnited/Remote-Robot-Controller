@@ -1,5 +1,6 @@
 import asyncio
 import datetime
+import json
 import subprocess
 
 
@@ -10,17 +11,39 @@ from .serial_listener import Reciever
 #from .udp_transmitter import UDPTransmitter
 # from .serial_listener import Serial_Listener
 
+
+def get_wired_ipv4():
+    try:
+        result = subprocess.run(
+            ["ip", "-j", "-4", "address", "show", "dev", "eth0"],
+            capture_output=True, check=True, text=True, timeout=1,
+        )
+        interfaces = json.loads(result.stdout)
+    except (OSError, subprocess.SubprocessError, ValueError):
+        return None
+
+    if not interfaces or not {"UP", "LOWER_UP"}.issubset(interfaces[0]["flags"]):
+        return None
+
+    return next(
+        (address["local"] for address in interfaces[0].get("addr_info", [])
+         if address["family"] == "inet"),
+        None,
+    )
+
+
 class BotController:
     ROBOT_COUNT = 8
     MAX_SPEED_VAL = Robot.MAX_SPEED_VAL
     SPEED_RANGE_COUNT = 5
-    ROBOT_OFFSET = 240 # 248
+    ROBOT_OFFSET = 240
 
     def __init__(self, app):
         self.robots = []
         self.selected_bot_index = 0
         self.selected_bot = None
         self.speed_range = 0
+        self.box_ip = None
         self.app = app
         self.bot_by_number = {}
 
@@ -42,11 +65,10 @@ class BotController:
         self.old_msg = {"speed_x": None, "speed_y": None, "speed_w": None,
                         "kick_up": None, "kick_down": None, "beep": None}
 
-        ip4_output = subprocess.run(['nmcli', '--fields', 'IP4.ADDRESS', 'device', 'show', 'eth0'], stdout=subprocess.PIPE).stdout.decode('utf-8')
-#        try:
-        self.box_ip = 'aboba'#ip4_output.split()[1][:-3]
-#        except: pass
-        pass
+    async def watch_box_ip(self):
+        while True:
+            self.box_ip = await asyncio.to_thread(get_wired_ipv4)
+            await asyncio.sleep(2)
 
     def set_speed_n_triggers(self, msg):
         try:

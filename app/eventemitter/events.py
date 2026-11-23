@@ -44,8 +44,10 @@ def load_events(app, ee):
             print(f"Exception 4 in {__file__}: {str(e)}")
             pass
 
-        
-    
+    @ee.on('sys:start')
+    async def watch_box_ip():
+        await app.bot_controller.watch_box_ip()
+
     @ee.on('sys:start')
     async def sys_start_handler():
         try:

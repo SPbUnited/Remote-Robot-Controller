@@ -27,8 +27,12 @@ window.addEventListener("gamepadconnected", function (e) {
     console.log(gp);
 });
 
+const boxIpLabel = document.getElementById("box_ip");
 let socket = new WebSocket(wsApi);
 socket.onmessage = wsMsg;
+socket.addEventListener("close", () => {
+    boxIpLabel.textContent = "Box IP: Connection lost";
+});
 
 document.getElementById('stop_all').onclick = stopAll;
 
@@ -80,11 +84,18 @@ async function wsMsg(event) {
 
     currentBot = msg["selected_bot"];
     speedRange = msg["speed_range"];
-    boxIp = msg["box_ip"];
 
     document.getElementById("selected_bot").textContent = "Selected Robot: " + currentBot;
     document.getElementById("speed_range").textContent = "Max Speed: " + Math.trunc((speedRange + 1) / 5 * 100) + "%";
-    document.getElementById("box_ip").textContent = "Box IP: " + boxIp;
+
+    const boxIp = msg["box_ip"];
+    const hasBoxIp = typeof boxIp === "string" && /^(?:\d{1,3}\.){3}\d{1,3}$/.test(boxIp);
+    const boxIpText = hasBoxIp
+        ? "Box IP: " + boxIp
+        : "Box IP: No wired IPv4";
+    if (boxIpLabel.textContent !== boxIpText) {
+        boxIpLabel.textContent = boxIpText;
+    }
 
 
     menus[currentBot].style.borderColor = "#ff0000";
@@ -205,7 +216,6 @@ let beepFlag = false;
 
 let currentBot = 0
 let speedRange = 0
-let boxIp = "0.0.0.0"
 
 let botNumb = 0;
 let dribblerEn = false;
