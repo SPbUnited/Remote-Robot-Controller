@@ -17,6 +17,7 @@ import {
     stopAll
 } from './controls.js';
 
+const ROBOT_ADDRESS_OFFSET = 240;
 
 let origin = location.hostname;
 let api = "http://" + origin + ":8001/api/";
@@ -45,7 +46,8 @@ async function wsMsg(event) {
     let menus = content.getElementsByClassName("submenu");
     let msg = JSON.parse(event.data);
     for (let i = 0; i < 8; i++) {
-        menus[i].getElementsByClassName("header")[0].textContent = "Robot: " + i;
+        const robotNumber = msg["robot_" + i]["address"] - ROBOT_ADDRESS_OFFSET;
+        menus[i].getElementsByClassName("header")[0].textContent = "Robot: " + robotNumber;
         menus[i].getElementsByClassName("speedX")[0].textContent =
             "X: " + msg["robot_" + i]["speed_x"] + " " +
             "Y: " + msg["robot_" + i]["speed_y"] + " " +
@@ -82,10 +84,11 @@ async function wsMsg(event) {
         menus[i].style.borderColor = "rgba(255, 0, 0, 0.6)";
     }
 
-    currentBot = msg["selected_bot"];
-    speedRange = msg["speed_range"];
+    const currentBot = msg["selected_bot"];
+    const selectedBotNumber = msg["robot_" + currentBot]["address"] - ROBOT_ADDRESS_OFFSET;
+    const speedRange = msg["speed_range"];
 
-    document.getElementById("selected_bot").textContent = "Selected Robot: " + currentBot;
+    document.getElementById("selected_bot").textContent = "Selected Robot: " + selectedBotNumber;
     document.getElementById("speed_range").textContent = "Max Speed: " + Math.trunc((speedRange + 1) / 5 * 100) + "%";
 
     const boxIp = msg["box_ip"];
@@ -213,9 +216,6 @@ let speedW = 0;
 let kickUpFlag = false;
 let kickDownFlag = false;
 let beepFlag = false;
-
-let currentBot = 0
-let speedRange = 0
 
 let botNumb = 0;
 let dribblerEn = false;

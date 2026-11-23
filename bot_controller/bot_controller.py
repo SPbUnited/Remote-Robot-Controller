@@ -40,9 +40,9 @@ class BotController:
 
     def __init__(self, app):
         self.robots = []
-        self.selected_bot_index = 0
+        self.selected_bot_index = 1
         self.selected_bot = None
-        self.speed_range = 0
+        self.speed_range = 2
         self.box_ip = None
         self.app = app
         self.bot_by_number = {}
